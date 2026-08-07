@@ -3,7 +3,7 @@
 ## Current Status
 
 ```text
-ACTIVE — Step 2 COMPLETE; Step 3 is active; Step 3.4 README sync is complete and Step 3.5 final Step 3 verification is the sole active substep
+ACTIVE — Step 3 COMPLETE / PASS; Step 4 bilingual release-candidate consistency review is the sole active step
 ```
 
 当前 canonical repository：
@@ -60,58 +60,63 @@ ACTIVE — Step 2 COMPLETE; Step 3 is active; Step 3.4 README sync is complete a
 - 2026-08-07：Step 3.2 repair 已完成并独立复验通过。Codex 基于最新 Runtime 仅修改 `structured-llm-execution-framework-en.md`，commit `de4d77f7a7bbdc6e72f15f21ac8cb30dc1e11917`（`docs: align English candidate with Chinese source`）并 push。GitHub commit diff 独立确认只有英文文件发生 `4 insertions / 4 deletions`：TPM 表述改为 `accepted at ... and made publicly available`；逐 K `1120/1120` 删除而保留 K=1/3/5 总计 `3360/3360 terminal configurations` 与 `metrics.json` / `error.json` terminal-state 语义；Case A 英文独有 theoretical-contribution 免责声明删除；Case B 英文独有 Android clarification 删除。GitHub `main` 回读英文 blob SHA=`5aa66998c77c382bcb62daccda60e4ff8612622a`；仓库搜索确认英文候选不再包含 `1120/1120`、`theoretical contribution to PeTeR` 或 `future platform context`。四项修正均与中文 canonical source 一致，未发现新的 claim drift 或附带正文修改。**Step 3.2 COMPLETE / PASS**。
 - 2026-08-07：Step 3.3 publication metadata / Markdown link audit 完成。GitHub `main` 回读确认英文正文 title=`Repository-Native Execution Governance for Long-Running LLM Workflows`、subtitle=`A Structured Constraint-Driven Framework for Durable Contracts, Runtime State, and Evidence-Backed Transitions`、Author=`Yeming Dai`、Version=`1.0 candidate`、canonical repository 与 `Copyright © 2026 Yeming Dai. All rights reserved.` 均与 README / CFF / COPYRIGHT / 中文 candidate 当前 publication state 一致。CFF 仍为 `1.0-candidate`，没有 `doi`、`date-released`、`license` 或 publication venue；README/COPYRIGHT 也未声称 Copyright Office registration。正文外部链接与 Case A/B evidence links 未发现损坏；owner 人工点击确认其余链接正常。`AGENTS.md` 使用语言中立 OpenAI URL `https://openai.com/index/introducing-codex/`，浏览器落到 `/zh-Hans-CN/` 属于 OpenAI locale routing，不视为坏链，不修改正文。**Step 3.3 COMPLETE / PASS**。
 - 2026-08-07：Step 3.4 README 同步完成。commit `e786d07ffe8d0031f8c7a5aef06849ef9d7bf15e`（`docs: link English v1.0 candidate from README`）只修改 `README.md` 的 Current publication 两处状态文本：把 `English version: in preparation` 替换为 `[English v1.0 candidate](structured-llm-execution-framework-en.md)`，并把未来时态说明改为“英文 candidate 已由中文 candidate 产生并通过 Step 3 content/parity 与 publication-metadata review；中英文仍是 candidate，等待后续 bilingual release-candidate review 与正式 v1.0 release”。commit diff 独立复核无其他文件或 README 区域变化；新 README blob SHA=`14cc7bf39c7a070c6dfaa9c3f640436b91ceb006`。**Step 3.4 COMPLETE / PASS**。
+- 2026-08-07：Step 3.5 最终仓库级验收通过。重新从 GitHub `main` 读取 Static、Runtime、中英文正文、README、`CITATION.cff` 与 `COPYRIGHT.md`：英文正文 blob SHA 仍为 `5aa66998c77c382bcb62daccda60e4ff8612622a`，中文正文 blob SHA 仍为 `859a84479a3698b8eb92b007ee78d93e9ffe34c7`，README blob SHA=`14cc7bf39c7a070c6dfaa9c3f640436b91ceb006`，CFF=`fb7162973a72ae263efe6a00cd6080e789a683ee`，COPYRIGHT=`ebfd017d2c45c21a572d63f619c7f76b09c91cb3`，Static=`45a13a5a1de105fa27c8a6352a98d20df8e7b226`。README 同时链接双语 candidate；英文 metadata 与 README/CFF/COPYRIGHT 一致；中文 metadata 未被英文流程修改；Step 3.2 四项 repair 未回退。再次读取 `README.md` at ref `v1.0` 得到 `No commit found for the ref v1.0`，根目录 `LICENSE` / `LICENSE.md` 均不存在，因此没有提前出现正式 `v1.0` ref 或 repository-wide open license。**Step 3 COMPLETE / PASS**。
 
 ---
 
 # active step
 
-## Step 3.5 — Step 3 最终状态推进与独立验收
+## Step 4 — 中英文联合 release-candidate 一致性验收
 
 ### 当前判定
 
 ```text
-ACTIVE — English candidate and README sync are complete; perform final Step 3 repository-level verification before promoting Step 4
+ACTIVE — bilingual Markdown candidates exist and passed Step 3; perform a release-candidate-level cross-language consistency audit before generating fixed PDFs
 ```
 
 ### 目标
 
-从 GitHub `main` 重新读取英文正文、中文正文、README、`CITATION.cff`、`COPYRIGHT.md`、Static 和 Runtime，确认 Step 3 的最终仓库状态与证据链一致。Step 3.5 不再做大范围英文润色；其职责是确认已经完成的英文 candidate 可以作为 Step 4 双语 release-candidate review 的输入。
+以当前 GitHub `main` 上的中英文 candidate、README、CFF、COPYRIGHT 与 Static 为输入，对即将进入固定 PDF 阶段的双语 release candidate 做最后一轮高层一致性审查。Step 4 不重新设计框架，也不做大范围文风重写；重点是发现会让两个正式语言版本在方法定义、claim strength、事实、metadata、rights 或引用身份上表现为两套作品的差异。
 
 ### 必须检查
 
-1. `structured-llm-execution-framework-en.md` 存在，当前 blob SHA 与 Step 3.2 复验后的值一致，除非存在已记录的后续 evidence-backed correction。
-2. README 同时链接中文和英文 `v1.0 candidate`，且 relative paths 正确。
-3. 英文 title / subtitle / Author / version / canonical repository / copyright 与 README、CFF、COPYRIGHT 一致。
-4. 中文 candidate 的 Author / version / canonical repository / copyright 未被英文流程意外修改。
-5. Step 3.2 的四项 repair 仍保持，不出现回退。
-6. 没有新增 DOI、formal `v1.0` tag/Release、formal release date、publication venue、Copyright Office registration 或 repository-wide open license 声明。
-7. Static 未因英文制作被修改；Runtime 保留 Step 3.1–3.4 的真实证据与唯一 active step。
-8. 重新读取 Step 3.4 README commit / 当前 README blob，确认 candidate link 与状态说明真实存在。
+1. **作品身份**：中文标题/副标题与冻结英文 title/subtitle 的非逐字映射仍明确属于同一作品；Author、Version、canonical repository、copyright 完全一致。
+2. **章节与结构覆盖**：摘要、两类 failure modes、四项 design principles、Static/Runtime/History、conflict handling、Step 0–4.4 execution loop、Why It Works、Case A/B、第七节风险分层与 7 个 misuse risks、第八节 5 类 related-work comparison 均双向覆盖。
+3. **核心术语**：Static / Runtime / History、Separation of Concerns、Constraints First Details Late、Prompts Should Be Dumb、Proportional Rigor、State Transition Evidence、Decision Supersession、acceptance gate、artifact verification、Hallucination Drift、Constraint Drift、current authoritative state / project semantic state 的中英文含义稳定。
+4. **claim strength**：不允许一侧把另一侧的 `说明/支撑/降低风险/实践观察` 升级为 proof、guarantee、eliminate、universal、first、novel、SOTA 等更强结论；反向也检查中文是否存在明显绝对化而英文已谨慎弱化的表述。
+5. **Case A 事实**：阶段关系、`3360/3360` terminal-state 语义、`metrics.json` / `error.json`、Adrian 对 high learning-rate numerical failures 的确认、K=3/K=5 各 `28/28`、L40S `j=8` 约 12 GiB、full A100 80GB `j=8` 约 47.8 GiB，以及 task-local Static/Runtime + cross-task History 的定位一致。
+6. **Case B 事实**：作者自有历史项目、源码遗失背景、Windows read-only historical reference、macOS 单一稳定边界因此不机械增加 History、`2026-08-02 21:41 MST`、约 32h58m/~33h、130→165 tests、alpha.1→alpha.3、license owner decision、75/324/20、`v0.1.0-alpha.3`、only macOS 27.0 build `26A5378n` tested、artifact identity / source-input protection / cancellation / non-development-machine acceptance 等一致。
+7. **适用边界**：lightweight / moderate / strict / full 四档与 unsuitable task types、7 个 misuse risks 在两种语言中不得发生方法论边界漂移。
+8. **相关工作**：CoT/ReAct、Spec Kit/Kiro、context engineering/AGENTS.md/CLAUDE.md/Steering、LangGraph/Agents SDK/AutoGen、traditional SOP/project documentation 五类比较的抽象层级与谨慎定位一致。
+9. **publication metadata / rights / citation identity**：README、CFF、COPYRIGHT 与两篇正文一致；CFF 的 `preferred-citation` 代表同一作品；不存在 DOI、formal release date、venue、registration 或 open license 的提前声明。
+10. **PDF 前冻结条件**：确认没有已知 blocker 需要在生成 PDF 前修正文；如果只有非阻塞内部控制文档 residue，记录但不得伪装成 publication artifact 冲突。
 
 ### 允许修改
 
-默认不修改正文、README、CFF、COPYRIGHT 或 Static。
+默认只做审核。
 
-若发现纯粹的 Step 3 residue，可做最小 evidence-backed correction 后重新验收；若需要改变框架内容、中文版事实、rights strategy 或正式标题，停止并交 owner 决策。
+若发现纯 editorial / bilingual-consistency 问题，可以做最小 evidence-backed correction，原则上只修改受影响的中文/英文正文、README、CFF 或 COPYRIGHT，并重新核验。不得借 Step 4 改变核心框架、Case 事实或 rights strategy；涉及这些内容时必须停止并交 owner 决策。
 
-Step 3.5 验收完成后，只允许更新 Runtime 记录最终 evidence 与状态推进。
+Static 默认不修改。其内部项目工作名若与正式 publication title 不同，只要不造成正式资产身份冲突，可作为 non-blocking control-document residue 记录；若要修改长期合同名称，需 owner 明确授权。
+
+### 判定
+
+- `PASS`：双语 release candidate 可以冻结并进入 PDF。
+- `PASS WITH MINOR REPAIR`：仅有明确、局部、可直接修正的一致性问题；修正并复验后再关闭 Step 4。
+- `BLOCKED`：存在需要 owner 决策、核心方法论变化、rights 变化或事实无法唯一确定的问题。
 
 ### 验收条件
 
 全部通过后：
 
 ```text
-Step 3 COMPLETE / PASS
-Step 4 ACTIVE — bilingual release-candidate consistency review
+Step 4 COMPLETE / PASS
+Step 5 ACTIVE — generate and verify fixed bilingual PDF assets
 ```
 
 ---
 
 # next steps
-
-## Step 4 — 中英文联合一致性验收
-
-方向：对 v1.0 release candidate 做更高层的双语联合一致性检查，形成 PDF 前的冻结候选。
 
 ## Step 5 — 生成固定版 PDF 与发布资产
 
