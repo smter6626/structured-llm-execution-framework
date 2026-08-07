@@ -293,13 +293,17 @@ Static / Runtime / audit machinery 服务于执行控制，不等于最终产品
 
 ---
 
-## 八、与相关工作的区别
+## 八、与相关方法和工具的区别
 
-**与 ReAct / Chain-of-Thought 的区别**：那些方法优化的是单次推理的质量，本框架解决的是多步骤任务中的状态管理和约束维护问题。两者不互斥，CoT 可以在单个 Step 内使用。
+**与 Chain-of-Thought / ReAct 的区别**：[Chain-of-Thought](https://arxiv.org/abs/2201.11903) 主要作用于模型在一个任务内部的显式推理过程；[ReAct](https://arxiv.org/abs/2210.03629) 则进一步把推理与外部行动交错起来，使模型能够在多步交互中获取信息、更新计划和执行动作。本框架不试图替代这些推理或行动模式，而是解决更外层的长期执行治理问题：当任务跨越多个 Agent session、commit 和阶段时，哪些约束应保持稳定、当前状态如何持久化、何时允许状态迁移，以及旧结论如何被明确废止。CoT 或 ReAct 都可以作为某个 Active Step 内部的执行策略。
 
-**与 AutoGPT / 类 Agent 框架的区别**：自主 Agent 框架倾向于最大化 LLM 的自主性。本框架的设计哲学相反——人类保留对 Static 合同变更的授权权、对 Runtime 更新的最终确认权或自动化规则设定权、对 4.4 情况的决策权。LLM 是执行者，不是最终决策者。
+**与规范驱动开发（Spec-Driven Development）及 GitHub Spec Kit / Kiro Specs 的区别**：[GitHub Spec Kit](https://github.com/github/spec-kit) 和 [Kiro Specs](https://kiro.dev/docs/specs/) 同样反对直接从模糊提示进入实现，并通过 specification / requirements、design / plan、tasks 等结构化 artifact 驱动开发。Spec Kit 采用 `Spec → Plan → Tasks → Implement` 的阶段链，Kiro Specs 则将 requirements、design 和 tasks 分离并追踪任务状态。本框架与它们共享“把上下文外化为结构化文档”的思路，但关注的维度不同：它不规定固定的软件开发阶段流水线，而是按照**信息稳定性、修改权限和时间尺度**区分 Static、Runtime 和可选 History。因此同一套结构可以用于科研实验、软件发布或其他可阶段验收的任务，而 Runtime 还承担 evidence-backed state transition 与 supersession 的当前语义。
 
-**与标准 SOP 文档的区别**：传统 SOP 是静态的，不追踪执行状态，也没有 LLM 参与的验证环节。本框架的 Runtime 文档是活的，每次状态变化都应留下可追溯记录，形成可审计的执行轨迹。
+**与 context engineering、AGENTS.md / CLAUDE.md / Steering 的区别**：现代 coding agent 普遍使用 repository-level instruction 或 memory 文件保存架构、规范、命令和项目知识；例如 OpenAI Codex 使用 [`AGENTS.md`](https://openai.com/index/introducing-codex/)，Claude Code 使用 [`CLAUDE.md`](https://docs.anthropic.com/en/docs/claude-code/memory)，Kiro 提供独立的 [Steering](https://kiro.dev/docs/steering/) 文件。更一般的 [context engineering](https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents) 关注的是每次推理时模型应该获得哪些上下文。本框架属于这一趋势下更窄的执行治理方案，但刻意不把所有信息堆进同一个 context file：长期合同、当前执行状态和跨任务历史具有不同的更新频率与修改权限，因此被物理分离。其目标不是最大化上下文，而是让模型在当前步骤获得足够且语义明确的权威信息。
+
+**与 Agent orchestration / runtime framework 的区别**：[LangGraph](https://docs.langchain.com/oss/python/langgraph/persistence)、[OpenAI Agents SDK](https://openai.github.io/openai-agents-python/) 和 [AutoGen](https://microsoft.github.io/autogen/stable/) 等框架已经提供 session、checkpoint、memory、handoff、guardrail、tracing、human-in-the-loop 和多 Agent 编排等运行时能力，用于保存和控制正在运行的 Agent 系统状态。本框架不替代这些基础设施，也不以“自主性高低”作为主要区分标准；它管理的是更高一层的**项目语义状态**：什么合同仍有效、什么工作已经验收、什么证据允许推进、哪些旧决策已经失效，以及下一次执行应从哪个经过验证的状态继续。因此两者可以叠加使用：runtime framework 保存程序或 Agent 的执行状态，Static / Runtime / History 保存项目执行语义。
+
+**与传统 SOP / project documentation 的区别**：SOP、需求文档、任务列表和项目日志本身都可以版本化、动态维护，因此区别不能简单概括为“传统 SOP 是静态的”。本框架的特征在于主动规定不同文档之间的职责和修改权限，并把 `Static contract → Runtime state → evidence-backed transition → optional History` 组成执行循环。Git history 负责记录“发生过什么”，Runtime 负责声明这些证据对**当前有效状态**意味着什么；当新证据推翻旧结论时，还要求显式记录 supersession，而不是让后续 Agent 自行从历史中猜测哪个结论仍然有效。
 
 ---
 
