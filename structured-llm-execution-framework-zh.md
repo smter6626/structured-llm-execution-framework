@@ -2,6 +2,11 @@
 
 > 通过文档分离与角色专职压缩 LLM 输出的不确定性
 
+**Author:** Yeming Dai  
+**Version:** 1.0 candidate  
+**Canonical repository:** https://github.com/smter6626/structured-llm-execution-framework  
+**Copyright:** © 2026 Yeming Dai. All rights reserved.
+
 ---
 
 ## 摘要
