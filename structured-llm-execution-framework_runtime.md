@@ -3,7 +3,7 @@
 ## Current Status
 
 ```text
-ACTIVE — Step 3 COMPLETE / PASS; Step 4 bilingual release-candidate consistency review is the sole active step
+ACTIVE — Step 4 COMPLETE / PASS; Step 5 PDF layout/preflight candidate generation is the sole active step
 ```
 
 当前 canonical repository：
@@ -27,7 +27,7 @@ ACTIVE — Step 3 COMPLETE / PASS; Step 4 bilingual release-candidate consistenc
 - 2026-08：已决定保留 `sharable` 的既有 Git commit 历史，不通过 history rewrite、force push 或删除早期 commits 的方式“清理”来源证据。
 - 2026-08：已决定将成熟后的框架文章从杂项 `sharable` 仓库拆分为独立 canonical repository；后续英文版、正式版本、GitHub Release、DOI 和 citation metadata 原则上都应落在独立仓库。
 - 2026-08：当前默认 rights strategy 为 `Copyright © 2026 Yeming Dai. All rights reserved.`；在 owner 明确改变许可前，不主动授予 CC 或其他开放内容许可。
-- 2026-08：已确定主要正式化路线为：独立仓库迁移 → 中文 v1.0 冻结与版权/引用元数据 → 英文版 → 中英文联合审校 → 固定 PDF → Git tag / GitHub Release → Zenodo DOI → DOI 回填与双向链接 → 可选美国版权登记。
+- 2026-08：已确定主要正式化路线为：独立仓库迁移 → 中文 v1.0 冻结与版权/引用元数据 → 英文版 → 中英文联合审校 → 固定 PDF → Git tag / GitHub Release → Zenodo DOI → DOI 回填与双向链接 → 可选美国版权登记。该早期未来路线在 Step 4 的 PDF 前冻结审查中发现会导致正式 Release 后回填 DOI、从而修改已冻结资产，因此已由后续 evidence-backed sequencing decision 显式 supersede；详见 Step 4 完成记录与当前 next steps。
 - 2026-08-07：创建长期合同 `structured-llm-execution-framework_static.md`，原 `sharable` commit `8d5e706c6f258cc10813274e7f765008e1fb5756`。Static 明确 provenance、安全边界、版权目标、正式版本、DOI、英文版、Git 安全和可选美国版权登记的长期规则。
 - 2026-08-07：创建初始 Runtime，原 `sharable` commit `5caf7600188bc1990bd416607374fe12c743beb8`，将独立仓库迁移设为唯一 active step。
 - 2026-08-07：owner 创建公开仓库 `smter6626/structured-llm-execution-framework`。GitHub metadata 核验：visibility=`public`，default branch=`main`，仓库在迁移写入前 size=0。
@@ -61,80 +61,103 @@ ACTIVE — Step 3 COMPLETE / PASS; Step 4 bilingual release-candidate consistenc
 - 2026-08-07：Step 3.3 publication metadata / Markdown link audit 完成。GitHub `main` 回读确认英文正文 title=`Repository-Native Execution Governance for Long-Running LLM Workflows`、subtitle=`A Structured Constraint-Driven Framework for Durable Contracts, Runtime State, and Evidence-Backed Transitions`、Author=`Yeming Dai`、Version=`1.0 candidate`、canonical repository 与 `Copyright © 2026 Yeming Dai. All rights reserved.` 均与 README / CFF / COPYRIGHT / 中文 candidate 当前 publication state 一致。CFF 仍为 `1.0-candidate`，没有 `doi`、`date-released`、`license` 或 publication venue；README/COPYRIGHT 也未声称 Copyright Office registration。正文外部链接与 Case A/B evidence links 未发现损坏；owner 人工点击确认其余链接正常。`AGENTS.md` 使用语言中立 OpenAI URL `https://openai.com/index/introducing-codex/`，浏览器落到 `/zh-Hans-CN/` 属于 OpenAI locale routing，不视为坏链，不修改正文。**Step 3.3 COMPLETE / PASS**。
 - 2026-08-07：Step 3.4 README 同步完成。commit `e786d07ffe8d0031f8c7a5aef06849ef9d7bf15e`（`docs: link English v1.0 candidate from README`）只修改 `README.md` 的 Current publication 两处状态文本：把 `English version: in preparation` 替换为 `[English v1.0 candidate](structured-llm-execution-framework-en.md)`，并把未来时态说明改为“英文 candidate 已由中文 candidate 产生并通过 Step 3 content/parity 与 publication-metadata review；中英文仍是 candidate，等待后续 bilingual release-candidate review 与正式 v1.0 release”。commit diff 独立复核无其他文件或 README 区域变化；新 README blob SHA=`14cc7bf39c7a070c6dfaa9c3f640436b91ceb006`。**Step 3.4 COMPLETE / PASS**。
 - 2026-08-07：Step 3.5 最终仓库级验收通过。重新从 GitHub `main` 读取 Static、Runtime、中英文正文、README、`CITATION.cff` 与 `COPYRIGHT.md`：英文正文 blob SHA 仍为 `5aa66998c77c382bcb62daccda60e4ff8612622a`，中文正文 blob SHA 仍为 `859a84479a3698b8eb92b007ee78d93e9ffe34c7`，README blob SHA=`14cc7bf39c7a070c6dfaa9c3f640436b91ceb006`，CFF=`fb7162973a72ae263efe6a00cd6080e789a683ee`，COPYRIGHT=`ebfd017d2c45c21a572d63f619c7f76b09c91cb3`，Static=`45a13a5a1de105fa27c8a6352a98d20df8e7b226`。README 同时链接双语 candidate；英文 metadata 与 README/CFF/COPYRIGHT 一致；中文 metadata 未被英文流程修改；Step 3.2 四项 repair 未回退。再次读取 `README.md` at ref `v1.0` 得到 `No commit found for the ref v1.0`，根目录 `LICENSE` / `LICENSE.md` 均不存在，因此没有提前出现正式 `v1.0` ref 或 repository-wide open license。**Step 3 COMPLETE / PASS**。
+- 2026-08-07：Step 4 双语 release-candidate 审查完成。完整对读当前中英文 candidate 后，章节覆盖、核心术语、execution loop、Case A/B、四档 rigor、7 个 misuse risks、5 类 related work、metadata/rights/citation identity 均保持同一作品语义。审查发现中文版有三处比英文更绝对的 claim-strength residue：`幻觉的根本原因` vs `a primary source`、`双重验证消除自评盲区 / 任何…都会暴露` vs `reduces / creates an opportunity`、以及 K=5 telemetry `证明` vs `showed`。已在 commit `86f24926167baec497fe9b733425f41aefbb19e1`（`docs: align Chinese claim strength with English candidate`）中只修改中文正文三处，分别收紧为“一个主要来源 / 稳定的约束基础”、“减少自评盲区 / 提供第二个视角”和 telemetry“表明”；commit diff 独立确认无其他正文变化。修正后中文 blob SHA=`9919093a3cde5eeae3c198af0957a43a6b18dac8`，英文仍为 `5aa66998c77c382bcb62daccda60e4ff8612622a`。再次检查未发现需要改变核心框架、Case 事实、rights 或 citation identity 的 blocker。Static 首段仍保留内部历史工作名 `Structured Constraint-Driven LLM Execution Framework`，按 Step 4 合同作为 non-blocking control-document residue，不修改长期合同。**Step 4 COMPLETE / PASS**。
+- 2026-08-07：Step 4 的 PDF 前冻结审查同时发现旧未来执行顺序存在语义冲突：旧 Runtime 方向为“固定 PDF → Git tag / GitHub Release → Zenodo DOI → DOI 回填”，若照此执行，reserved/published DOI 将迫使 Markdown/CFF/PDF 在正式 Release 后修改，与 Static “正式版本冻结后不得静默修改同一版本资产”及“可在正式发布前 reserve DOI 以回填最终 PDF/Markdown/citation metadata”的合同冲突。该问题不是 Static 冲突，而是 Runtime future-plan ordering 问题，因此按 evidence-backed supersession 修正，不请求修改 Static。旧的 Step 6 Release-before-DOI / Step 7 DOI / Step 8 backfill 顺序从现在起 `SUPERSEDED`。当前有效路线为：Step 5 PDF layout/preflight candidate（非正式固定资产）→ Step 6 Zenodo DOI reservation（draft only, not publish）→ Step 7 DOI backfill + final v1.0 Markdown/CFF/PDF asset freeze → Step 8 exact-commit `v1.0` tag + GitHub Release → Step 9 Zenodo publish + DOI/Release/repository cross-link closure → Step 10 optional U.S. Copyright Office registration。
 
 ---
 
 # active step
 
-## Step 4 — 中英文联合 release-candidate 一致性验收
+## Step 5 — 双语 PDF layout / preflight candidate
 
 ### 当前判定
 
 ```text
-ACTIVE — bilingual Markdown candidates exist and passed Step 3; perform a release-candidate-level cross-language consistency audit before generating fixed PDFs
+ACTIVE — bilingual Markdown release candidate has passed Step 4; validate a reproducible PDF-generation pipeline and page-level rendering before DOI reservation and final asset freeze
 ```
 
 ### 目标
 
-以当前 GitHub `main` 上的中英文 candidate、README、CFF、COPYRIGHT 与 Static 为输入，对即将进入固定 PDF 阶段的双语 release candidate 做最后一轮高层一致性审查。Step 4 不重新设计框架，也不做大范围文风重写；重点是发现会让两个正式语言版本在方法定义、claim strength、事实、metadata、rights 或引用身份上表现为两套作品的差异。
+基于当前通过 Step 4 的中英文 Markdown，建立可重复的 PDF 生成与视觉验收流程，并生成**仅用于版式/字体/链接/分页预检的 candidate PDFs**。本步骤不把这些 candidate PDFs 宣称为正式 v1.0 固定资产，也不创建 tag / Release / DOI；最终正式 PDF 必须在 Step 6 reserve DOI 后，于 Step 7 把 DOI 和最终 v1.0 metadata 回填后重新生成并冻结。
 
-### 必须检查
+### 必须读取
 
-1. **作品身份**：中文标题/副标题与冻结英文 title/subtitle 的非逐字映射仍明确属于同一作品；Author、Version、canonical repository、copyright 完全一致。
-2. **章节与结构覆盖**：摘要、两类 failure modes、四项 design principles、Static/Runtime/History、conflict handling、Step 0–4.4 execution loop、Why It Works、Case A/B、第七节风险分层与 7 个 misuse risks、第八节 5 类 related-work comparison 均双向覆盖。
-3. **核心术语**：Static / Runtime / History、Separation of Concerns、Constraints First Details Late、Prompts Should Be Dumb、Proportional Rigor、State Transition Evidence、Decision Supersession、acceptance gate、artifact verification、Hallucination Drift、Constraint Drift、current authoritative state / project semantic state 的中英文含义稳定。
-4. **claim strength**：不允许一侧把另一侧的 `说明/支撑/降低风险/实践观察` 升级为 proof、guarantee、eliminate、universal、first、novel、SOTA 等更强结论；反向也检查中文是否存在明显绝对化而英文已谨慎弱化的表述。
-5. **Case A 事实**：阶段关系、`3360/3360` terminal-state 语义、`metrics.json` / `error.json`、Adrian 对 high learning-rate numerical failures 的确认、K=3/K=5 各 `28/28`、L40S `j=8` 约 12 GiB、full A100 80GB `j=8` 约 47.8 GiB，以及 task-local Static/Runtime + cross-task History 的定位一致。
-6. **Case B 事实**：作者自有历史项目、源码遗失背景、Windows read-only historical reference、macOS 单一稳定边界因此不机械增加 History、`2026-08-02 21:41 MST`、约 32h58m/~33h、130→165 tests、alpha.1→alpha.3、license owner decision、75/324/20、`v0.1.0-alpha.3`、only macOS 27.0 build `26A5378n` tested、artifact identity / source-input protection / cancellation / non-development-machine acceptance 等一致。
-7. **适用边界**：lightweight / moderate / strict / full 四档与 unsuitable task types、7 个 misuse risks 在两种语言中不得发生方法论边界漂移。
-8. **相关工作**：CoT/ReAct、Spec Kit/Kiro、context engineering/AGENTS.md/CLAUDE.md/Steering、LangGraph/Agents SDK/AutoGen、traditional SOP/project documentation 五类比较的抽象层级与谨慎定位一致。
-9. **publication metadata / rights / citation identity**：README、CFF、COPYRIGHT 与两篇正文一致；CFF 的 `preferred-citation` 代表同一作品；不存在 DOI、formal release date、venue、registration 或 open license 的提前声明。
-10. **PDF 前冻结条件**：确认没有已知 blocker 需要在生成 PDF 前修正文；如果只有非阻塞内部控制文档 residue，记录但不得伪装成 publication artifact 冲突。
+执行前完整读取：
 
-### 允许修改
+1. `structured-llm-execution-framework_static.md`
+2. `structured-llm-execution-framework_runtime.md`
+3. `structured-llm-execution-framework-zh.md`
+4. `structured-llm-execution-framework-en.md`
+5. `README.md`
+6. `CITATION.cff`
+7. `COPYRIGHT.md`
 
-默认只做审核。
+并确认 Git preflight：clean `main`、tracking `origin/main`、`origin/main...HEAD=0 0`。
 
-若发现纯 editorial / bilingual-consistency 问题，可以做最小 evidence-backed correction，原则上只修改受影响的中文/英文正文、README、CFF 或 COPYRIGHT，并重新核验。不得借 Step 4 改变核心框架、Case 事实或 rights strategy；涉及这些内容时必须停止并交 owner 决策。
+### 执行原则
 
-Static 默认不修改。其内部项目工作名若与正式 publication title 不同，只要不造成正式资产身份冲突，可作为 non-blocking control-document residue 记录；若要修改长期合同名称，需 owner 明确授权。
+- PDF 是文本密集型技术文档；应使用**可重复、命令行可执行**的生成流程，不依赖只能手工点击的 GUI。
+- 可以选择 Markdown→HTML/CSS→PDF、Pandoc/LaTeX、DOCX→PDF 或其他稳定路线，但必须记录实际工具、版本、命令和依赖；不要为了排版方便引入来源/许可不清的字体文件。
+- 必须正确处理中文、英文、代码块、表格、内联代码、URL、外部链接、分页和长行；不得出现缺字、黑方块、重叠、裁切或代码溢出页面。
+- 生成后必须 render-to-images 做逐页视觉检查；至少使用一个可靠 renderer，必要时对字体/链接等复杂问题使用第二 renderer 交叉检查。
+- candidate PDFs 只是版式验收样本；除非后续 Runtime 明确要求，不应把它们当成正式 Release 资产或用正式 `v1.0` frozen asset 名义发布。
+- 尽量保留一条可复现的 build entry point（脚本或明确命令），以便 Step 7 在 DOI 回填后用同一流程重新生成最终 PDF。
 
-### 判定
+### 必须验收
 
-- `PASS`：双语 release candidate 可以冻结并进入 PDF。
-- `PASS WITH MINOR REPAIR`：仅有明确、局部、可直接修正的一致性问题；修正并复验后再关闭 Step 4。
-- `BLOCKED`：存在需要 owner 决策、核心方法论变化、rights 变化或事实无法唯一确定的问题。
+中英文 candidate PDF 都需要检查：
 
-### 验收条件
+1. 标题、副标题、Author、`1.0 candidate`、canonical repository、copyright 均来自当前 Markdown，不能提前变成 formal v1.0 或虚构 DOI。
+2. 所有正文内容存在且顺序与 Markdown 一致；章节、代码块、表格没有丢失。
+3. 中文字符完整显示；英文标点/代码字体正常；无 missing-glyph squares。
+4. 页面无 clipping、overlap、orphaned heading 导致的明显可读性问题；长 URL / inline code 不越界。
+5. Markdown 超链接在 PDF 中保持为可点击链接或至少文本可见且未损坏；尤其检查 Case B evidence links 与 related-work links。
+6. 页数、文件大小、SHA-256、生成命令/工具版本可记录。
+7. render 到约 200 DPI 的图片后逐页检查；报告发现和修复的任何 layout issue。
+8. Git 仓库中若新增 build script / report，只能是可复现 PDF pipeline 相关内容；不得修改 Static、核心正文语义、rights 或 publication metadata。
 
-全部通过后：
+### 产物边界
+
+本步骤优先产出：
+
+- 可重复的 PDF build entry point / command record；
+- 中文 candidate PDF（本地/临时预检产物）；
+- 英文 candidate PDF（本地/临时预检产物）；
+- render/preflight evidence；
+- 必要的简短 preflight report。
+
+是否把 candidate PDF 二进制提交到 Git 由执行时根据仓库整洁性决定；默认**不把预检二进制当正式资产提交**，避免与 Step 7 最终 DOI-backed PDF 混淆。
+
+### 完成条件
+
+只有当两种语言的 PDF 都通过 render-first 视觉验收，且同一流程可在 DOI 回填后稳定重跑，Step 5 才能 COMPLETE。完成后：
 
 ```text
-Step 4 COMPLETE / PASS
-Step 5 ACTIVE — generate and verify fixed bilingual PDF assets
+Step 5 COMPLETE / PASS
+Step 6 ACTIVE — reserve Zenodo DOI in an unpublished draft record
 ```
 
 ---
 
 # next steps
 
-## Step 5 — 生成固定版 PDF 与发布资产
+## Step 6 — Zenodo DOI reservation（draft only）
 
-方向：生成中英文固定 PDF，验证字体、链接、分页、作者信息、版本和版权信息；生成 SHA-256 或等价资产校验记录。
+方向：重新核对届时 Zenodo 最新规则，创建未发布 draft deposit，固定 creator/title/version/rights/repository metadata 并 reserve DOI；不得 Publish，直到最终 assets 已冻结。
 
-## Step 6 — Git v1.0 tag 与 GitHub Release
+## Step 7 — DOI 回填与最终 v1.0 asset freeze
 
-方向：从干净且已验收的 commit 创建不可移动的正式 `v1.0` tag 和 GitHub Release；正式资产不得在发布后静默替换。
+方向：把 reserved DOI 回填 README、中文/英文 Markdown、`CITATION.cff`，将 candidate 状态正式化为 v1.0 release content，使用 Step 5 已验收 pipeline 重新生成最终中英文 PDF，做 render/preflight/hash 验收，形成唯一 release commit。
 
-## Step 7 — Zenodo DOI
+## Step 8 — Git `v1.0` tag 与 GitHub Release
 
-方向：核对届时 Zenodo 最新规则，建立 deposit，优先 reserve DOI → 回填 Markdown / PDF / CITATION → 最终 Publish；确保 creator、版本、发布日期、rights、repository 与文件一致，并使用 Zenodo versioning 支持后续 v1.1 / v2.0 等演化版本。
+方向：从 Step 7 的 exact frozen release commit 创建不可移动的 `v1.0` tag 和 GitHub Release，上传经过 hash 验收的最终资产；发布后不得静默替换。
 
-## Step 8 — DOI 回写与 citation closure
+## Step 9 — Zenodo publish 与 citation closure
 
-方向：把正式 DOI 回写 GitHub README、中文 / 英文文档、PDF、`CITATION.cff` 等入口，并验证从 DOI、Release 和 repository 任一入口都能定位到同一正式版本及其版本链。
+方向：使用与 GitHub Release 完全一致的最终资产 Publish 已 reserve DOI 的 Zenodo record；核对 creator/version/date/rights/files/hash，并验证 DOI ↔ GitHub Release ↔ repository ↔ Markdown/PDF/CFF 的双向定位与后续 versioning 路线。
 
-## Step 9 — 可选：美国版权登记
+## Step 10 — 可选：美国版权登记
 
 方向：仅在 owner 确认要做时启动；届时重新核对 U.S. Copyright Office 最新规则、发表状态、deposit copy、AI-assisted authorship disclosure 和申请类型。该步骤不阻塞主要任务完成。
 
