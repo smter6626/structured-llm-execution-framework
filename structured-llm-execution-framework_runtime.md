@@ -3,7 +3,7 @@
 ## Current Status
 
 ```text
-ACTIVE — Step 2 COMPLETE; Step 3 is active; Step 3.1 initial English candidate is complete and Step 3.2 bilingual repair/re-verification is the sole active substep
+ACTIVE — Step 2 COMPLETE; Step 3 is active; Step 3.2 bilingual repair/re-verification is complete and Step 3.3 publication metadata/link audit is the sole active substep
 ```
 
 当前 canonical repository：
@@ -57,82 +57,61 @@ ACTIVE — Step 2 COMPLETE; Step 3 is active; Step 3.1 initial English candidate
 - 2026-08-07：**Step 2 COMPLETE / PASS**。中文版 v1.0 candidate 已完成本轮事实与结构审校；作者、candidate version、canonical repository、rights、CFF 与 README 一致；provenance 保持完整；Case A/B 关键事实重新核验；没有发现虚构 DOI、正式 release date、publication venue、Copyright Office registration 或开放许可证。Step 3（英文正式版）成为唯一 active step。
 - 2026-08-07：Step 3.1 完成执行侧初稿。Codex 在 clean `main`（初始 HEAD `2be4276f041d0ac40b2b1642398cbaf96661640d`，`origin/main...HEAD=0 0`）完整读取 Static、Runtime、中文正文、README、CFF、COPYRIGHT 后，新建唯一 canonical 英文文件 `structured-llm-execution-framework-en.md`，commit `dc9b5f7a3aa141ee30fc8e0137d997b66f06a762`（`docs: add initial English v1.0 candidate draft`）并 push 到 `origin/main`。GitHub 独立回读确认该 commit 仅新增英文文件、339 lines / 339 insertions，英文文件 blob SHA=`6e1a9eda74d2d88e5cba7a0ff598e5428ba18bbd`；README、Runtime、Static、中文正文、CFF、COPYRIGHT 未被 Codex 修改。Codex 报告的 SHA-256=`436f7e6e6230fefafcfeebc91ad9512109b245be6956b61a8a6c211b29425216` 当前未由 GitHub 连接器独立重算，因此仅记为 execution-side evidence。
 - 2026-08-07：Step 3.2 独立中英审阅已完成第一轮。结构、Static/Runtime/History 定义、Step 0–4.4、State Transition Evidence、Decision Supersession、Case A/B、四档 Proportional Rigor、7 个 misuse risks 与 5 类 related work 均覆盖；未发现 novelty / universal reliability / peer-reviewed publication 等 claim-strength 升级，macOS 27 限定、3360 terminal-state 语义、L40S/A100 资源边界与 related-work 定位均保持谨慎。整体判定为 `ACCEPTED WITH MINOR ISSUES`，但 Step 3.2 尚未 COMPLETE，需先完成以下四项 bilingual-parity repair 并由独立验收侧重新读取确认：① 删除英文 Case A 独有的逐 K `1120/1120` 细节，仅保留中文已有的总计 `3360/3360 terminal configurations`；② 删除 Case A Result 末尾英文独有的 theoretical-contribution 免责声明，不用新免责声明替代；③ 删除 Case B 第一段英文独有的 `The Android work is future platform context, not a completed part of this case.`，保留中文已有的 later Android port 背景；④ 将 `accepted by and made public through the UAI 2026 Workshop...` 改为更忠实的 `accepted at ... and made publicly available`。其中第①项 source-gap 部分来自执行 prompt 同时要求“中文是唯一正文事实源”又显式列出各 K `1120/1120`，因此记录为 review-side specification tension，不视为 Codex 隐瞒或无依据幻觉。
+- 2026-08-07：Step 3.2 repair 已完成并独立复验通过。Codex 基于最新 Runtime 仅修改 `structured-llm-execution-framework-en.md`，commit `de4d77f7a7bbdc6e72f15f21ac8cb30dc1e11917`（`docs: align English candidate with Chinese source`）并 push。GitHub commit diff 独立确认只有英文文件发生 `4 insertions / 4 deletions`：TPM 表述改为 `accepted at ... and made publicly available`；逐 K `1120/1120` 删除而保留 K=1/3/5 总计 `3360/3360 terminal configurations` 与 `metrics.json` / `error.json` terminal-state 语义；Case A 英文独有 theoretical-contribution 免责声明删除；Case B 英文独有 Android clarification 删除。GitHub `main` 回读英文 blob SHA=`5aa66998c77c382bcb62daccda60e4ff8612622a`；仓库搜索确认英文候选不再包含 `1120/1120`、`theoretical contribution to PeTeR` 或 `future platform context`。四项修正均与中文 canonical source 一致，未发现新的 claim drift 或附带正文修改。**Step 3.2 COMPLETE / PASS**。
 
 ---
 
 # active step
 
-## Step 3.2 — 英文候选稿 bilingual-parity repair 与独立复验
+## Step 3.3 — publication metadata 与 Markdown link audit
 
 ### 当前判定
 
 ```text
-ACTIVE — initial English candidate accepted with minor issues; four narrow repairs are required before Step 3.2 can close
+ACTIVE — English content/parity review is complete; verify publication metadata, rights/status claims, and Markdown links before README sync
 ```
 
 ### 目标
 
-只修正已定位的四处中英语义/事实源一致性问题，不重写英文全文，不修改中文 canonical source，不提前进入 publication metadata / README 同步。
+从 GitHub `main` 独立核对英文正文的 publication metadata 与所有外部/相对链接，确保它与 README、`CITATION.cff`、`COPYRIGHT.md`、中文 candidate 的当前 publication state 一致，并确认翻译没有制造损坏链接或提前声明尚不存在的正式发布状态。
+
+### 必须检查
+
+1. 英文正文 title 与冻结正式英文标题完全一致。
+2. subtitle 与冻结正式英文副标题完全一致。
+3. Author=`Yeming Dai`。
+4. Version=`1.0 candidate`，不得写成 formal `v1.0`。
+5. canonical repository 指向 `https://github.com/smter6626/structured-llm-execution-framework`。
+6. copyright notice 与 `COPYRIGHT.md` 的 All Rights Reserved 状态一致。
+7. 英文正文不得声称当前已经存在 DOI、formal release date、publication venue、Copyright Office registration 或 repository-wide open license。
+8. 文中相对链接必须能在当前仓库解析；外部 GitHub / arXiv / vendor documentation 链接不得因翻译改写而明显损坏。
+9. Case A / B 的 repository/report 链接应继续指向其真实 evidence source；不因 publication metadata 审核改变正文事实。
+10. README 在本步骤仍保持 `English version: in preparation`；只有 Step 3.3 PASS 后才进入 Step 3.4 修改 README。
 
 ### 允许修改
 
-仅：
+默认不修改任何文件，只做独立检查。
 
-```text
-structured-llm-execution-framework-en.md
-```
+如果发现纯 metadata/link typo，可在 evidence-backed correction 中只修改受影响文件，并重新核验；若发现需要改变正文方法论、中文版事实或 rights strategy 才能解决，停止并交 owner 决策。
 
-本轮不得修改：
-
-- `structured-llm-execution-framework-zh.md`
-- `README.md`
-- `structured-llm-execution-framework_runtime.md`
-- `structured-llm-execution-framework_static.md`
-- `CITATION.cff`
-- `COPYRIGHT.md`
-
-### 必须修正的四项
-
-1. Case A `peter_sweep` 段：删除英文独有的逐 K `1120/1120` 细节；保持 K=1/K=3/K=5 sweep 总计 `3360/3360 terminal configurations`，并保留 `metrics.json` / `error.json` terminal-state 与 Adrian high-learning-rate numerical failure 的原有语义。
-2. Case A Result 末尾：删除英文独有的 `The contribution documented by this case is execution governance and production experiment execution, not a theoretical contribution to PeTeR, GCW, or probabilistic circuits; the case does not establish their scientific claims.`，不得用新的额外免责声明替代。
-3. Case B 第一段：删除英文独有的 `The Android work is future platform context, not a completed part of this case.`；保留与中文版一致的 later Android port 背景，不新增其他 Android 解释。
-4. Case A 阶段演化段：把 `which was accepted by and made public through the UAI 2026 Workshop on Tractable Probabilistic Modeling (TPM)` 改为 `which was accepted at the UAI 2026 Workshop on Tractable Probabilistic Modeling (TPM) and made publicly available`。
-
-### 执行边界
-
-- repair 前必须 `git fetch origin --tags` 并确认 clean `main`、tracking `origin/main`、`origin/main...HEAD=0 0`；由于本 Runtime 更新发生在英文初稿之后，本地必须先 fast-forward 到最新 remote `main`，不得在旧 HEAD 上直接开始 repair。
-- 不得 stash / reset / clean / rebase / force push。
-- 修改后只提交英文文件，建议 commit message：`docs: align English candidate with Chinese source`。
-- push 后不得自行判定 Step 3.2 COMPLETE；最终 verdict 只能为 `ENGLISH CANDIDATE REPAIRED — awaiting independent re-verification` 或 `BLOCKED — <reason>`。
-
-### 独立复验条件
-
-repair commit 返回后，验收侧必须从 GitHub `main` 重新读取英文对应段落并确认：
-
-- 四项修正全部准确；
-- 没有额外正文修改或新的 claim drift；
-- 中文 canonical source 未修改；
-- README 仍保持 English version `in preparation`；
-- Static / CFF / COPYRIGHT 未被触碰。
+### 验收条件
 
 全部通过后：
 
 ```text
-Step 3.2 COMPLETE
-Step 3.3 ACTIVE — publication metadata and link audit
+Step 3.3 COMPLETE
+Step 3.4 ACTIVE — README sync to English v1.0 candidate link
 ```
+
+在 Step 3.3 完成前，不得把 README 英文状态改成 completed/candidate link，不得创建 tag / Release / DOI / PDF。
 
 ---
 
 # next steps
 
-## Step 3.3 — publication metadata 与链接检查
-
-方向：核对英文 title / subtitle / Author / version / canonical repository / copyright 与 README、CFF、COPYRIGHT 一致；检查 Markdown 链接；确认无虚构 DOI、正式 release date、venue、registration 或 open license。
-
 ## Step 3.4 — README 同步
 
-方向：只有英文正文通过 Step 3.2 / 3.3 后，才把 README 的 `English version: in preparation` 更新为实际英文 v1.0 candidate 链接。
+方向：只有英文正文通过 Step 3.2 / 3.3 后，才把 README 的 `English version: in preparation` 更新为实际英文 v1.0 candidate 链接，并保持中文 candidate、版本演化、rights、citation 和 provenance 表述一致。
 
 ## Step 3.5 — Step 3 状态推进
 
