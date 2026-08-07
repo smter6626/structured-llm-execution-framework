@@ -3,7 +3,7 @@
 ## Current Status
 
 ```text
-ACTIVE — Step 5 COMPLETE / PASS; Step 6 Zenodo DOI reservation (draft only) is the sole active step
+ACTIVE — Step 6 COMPLETE / PASS; Step 7 local DOI-backed final v1.0 staging and Zenodo draft file freeze is the sole active step
 ```
 
 当前 canonical repository：
@@ -65,115 +65,117 @@ ACTIVE — Step 5 COMPLETE / PASS; Step 6 Zenodo DOI reservation (draft only) is
 - 2026-08-07：Step 4 的 PDF 前冻结审查同时发现旧未来执行顺序存在语义冲突：旧 Runtime 方向为“固定 PDF → Git tag / GitHub Release → Zenodo DOI → DOI 回填”，若照此执行，reserved/published DOI 将迫使 Markdown/CFF/PDF 在正式 Release 后修改，与 Static “正式版本冻结后不得静默修改同一版本资产”及“可在正式发布前 reserve DOI 以回填最终 PDF/Markdown/citation metadata”的合同冲突。该问题不是 Static 冲突，而是 Runtime future-plan ordering 问题，因此按 evidence-backed supersession 修正，不请求修改 Static。旧的 Step 6 Release-before-DOI / Step 7 DOI / Step 8 backfill 顺序从现在起 `SUPERSEDED`。当前有效路线为：Step 5 PDF layout/preflight candidate（非正式固定资产）→ Step 6 Zenodo DOI reservation（draft only, not publish）→ Step 7 DOI backfill + final v1.0 Markdown/CFF/PDF asset freeze → Step 8 exact-commit `v1.0` tag + GitHub Release → Step 9 Zenodo publish + DOI/Release/repository cross-link closure → Step 10 optional U.S. Copyright Office registration。
 - 2026-08-07：Step 5 PDF layout/preflight pipeline 已由执行侧完成，commit `3bf8dd17a77e7f5ae9956fb42ef1bca8ea718ac0`（`docs: add reproducible bilingual PDF preflight pipeline`）并 push 到 `main`。GitHub 独立复核确认该 commit 只新增 PDF pipeline 相关内容：`.gitignore`、`docs/pdf-build.md`、`package.json`、`package-lock.json`、`scripts/build_pdfs.sh`、`scripts/markdown_to_html.mjs`、`styles/pdf.css`；canonical Markdown、README、CFF、COPYRIGHT、Static、Runtime 均未被执行侧修改。管线为 Markdown → `markdown-it` 14.1.0 → HTML/CSS → headless Chrome，A4 输出；默认 candidate binary / HTML / renders 位于 ignored `build/`，Step 7 可通过 `PDF_OUTPUT_DIR` / `PDF_VERSION_LABEL` 重用同一入口重新生成正式资产。
 - 2026-08-07：Step 5 独立 PDF 验收通过。owner 上传的两个 candidate PDF 与 execution-side 报告哈希完全一致：中文 `structured-llm-execution-framework-zh-v1.0-candidate.pdf` SHA-256=`a358c9706e752e47cdc4f554bf2c7bd358222519f05e017385e342a624520e44`、913775 bytes、12 pages；英文 `structured-llm-execution-framework-en-v1.0-candidate.pdf` SHA-256=`1597d514a9f9a1475d3ee9f3ec667fca0581302e24b1d36b635034236e4a5799`、495250 bytes、14 pages。独立 `pdf_inspect` / PyMuPDF / Poppler 检查确认两者均为 A4（约 595×842 pt）、未加密、可正常 text-extract，producer=`Skia/PDF m151`，字体均 embedded/subset 且有 Unicode mapping；中文包含 STSongti/PingFang、英文包含 Georgia/Times New Roman，代码字体含 Menlo。重新以 Poppler 150 DPI 渲染全部 26 页并逐页检查，且使用 PDFium 对标题页、代码块、execution loop、Case A/B、rigor table、related-work 与末页做第二 renderer spot-check；未发现 missing glyph、黑方块、clipping、overlap、table/code/long-URL overflow 或 orphaned heading 级别的明显版式缺陷。中文 PDF 有 19 个 link annotations / 18 unique URLs（Kiro wrapped link 产生两个 annotation rectangles），英文 18/18；两种语言的 18 个唯一目标均包含 canonical repo、AudioShifter evidence、CoT/ReAct、Spec Kit、Kiro、OpenAI Codex、Claude Code、context engineering、LangGraph、OpenAI Agents SDK、AutoGen 等预期链接。`pdftotext` 关键 token 检查全部通过，且未检测到 replacement char / U+FFFE/U+FFFF 等无效抽取字符。Codex 的第二次 clean rebuild 证据显示 page count、extracted text 和全部 rendered PNG 均一致，但 Chrome 因 creation/modification timestamp 使 PDF binary SHA 不一致；因此当前结论是 **content/layout reproducible, byte-for-byte PDF identity not guaranteed**。这不阻塞 Step 5；Step 7 最终生成后必须记录并冻结那一轮 exact PDF hashes。**Step 5 COMPLETE / PASS**。
+- 2026-08-07：Step 6 开始前重新核对 Zenodo 官方 deposit / DOI / license / versioning 文档及 DataCite DOI state 规则。当前证据确认：Zenodo `Reserve DOI` 在 draft 中只预留 identifier，只有 record `Publish` 后才正式注册并开始公开解析；DataCite Draft state 不在全局 Handle System / 公共 discovery 中激活，因此不应把尚未激活的 draft DOI 提前作为公开 citation identifier 使用。Zenodo License 字段默认 CC BY 4.0，但官方支持 custom license；因此本项目继续使用 `All rights reserved` custom rights statement，不改变既有版权策略。Step 4 形成的“Step 7 public DOI backfill → Step 8 GitHub Release → Step 9 Zenodo publish”未来顺序由此发现会制造公开死链窗口，现被本条 evidence-backed decision 再次显式 supersede。
+- 2026-08-07：owner 在 Zenodo 建立 unpublished draft 并实际取得 reserved DOI。owner 截图核验 draft metadata：Resource type=`Publication / Technical note`；正式英文主标题与 subtitle 正确；中文 translated title=`结构化约束驱动的 LLM 执行框架`；Creator=`Dai, Yeming`；Description 使用当前英文 Abstract；默认 CC BY 已移除，只保留 custom `All rights reserved`，并设置 `Copyright © 2026 Yeming Dai. All rights reserved.`；Languages=`English` + `Mandarin Chinese`；Version=`1.0`；Publisher=`Zenodo`；keywords 已填写；candidate PDFs 未上传。Preview 因 Zenodo Files validation 要求至少存在一个文件而不可显示，但这是预期的平台校验，不是 metadata blocker。record 仍为 Draft，未 Publish，也未创建 Git `v1.0` tag / GitHub Release。由于 canonical Runtime 本身是公开 GitHub 文件，reserved DOI 的 exact string / draft identifier 在激活前**故意不写入公开 Runtime**；精确值由 owner 的 Zenodo draft 与本轮私有审阅上下文保存。该做法显式 supersede Step 6 早期“把 reserved DOI exact value 记录到 public Runtime”的字面要求，避免公开传播尚未解析的 Draft-state DOI。
+- 2026-08-07：**Step 6 COMPLETE / PASS**。Zenodo unpublished draft、reserved DOI、双语/title/creator/version/ARR rights metadata 均已建立并经 owner screenshot audit；当前没有上传 preflight candidate PDFs、没有误 Publish、没有公开 tag/Release。后续有效顺序更新为：Step 7 在本地使用 reserved DOI 形成并验收 exact final v1.0 Markdown/CFF/PDF，随后把 exact final files 上传并冻结在 Zenodo draft（仍不 Publish、仍不把 DOI push 到 public GitHub）→ Step 8 Publish Zenodo 以激活 DOI，并立即验证 DOI resolution / record metadata / file hashes → Step 9 将已验收的同一 release content 推送为 GitHub frozen release commit，创建不可移动 `v1.0` tag + GitHub Release，并完成 DOI ↔ Release ↔ repository ↔ citation metadata cross-link closure → Step 10 optional U.S. Copyright Office registration。
 
 ---
 
 # active step
 
-## Step 6 — Zenodo DOI reservation（unpublished draft only）
+## Step 7 — local DOI-backed final v1.0 staging + Zenodo draft file freeze
 
 ### 当前判定
 
 ```text
-ACTIVE — bilingual Markdown and PDF pipeline are preflighted; create an unpublished Zenodo draft and reserve the DOI before final v1.0 metadata/assets are frozen
+ACTIVE — Zenodo draft and reserved DOI exist but the DOI is not publicly activated; prepare and independently verify the exact final v1.0 release artifacts locally, then place those exact files in the Zenodo draft without publishing or exposing the draft DOI on public GitHub
 ```
 
 ### 目标
 
-在**不 Publish** Zenodo record 的前提下，使用 Zenodo 当前官方规则建立该框架 v1.0 的 draft deposit / record，并 reserve 一个 DOI。reserved DOI 将在 Step 7 回填到 README、中英文 Markdown、`CITATION.cff` 与最终 PDF，再由同一 PDF pipeline 重新生成并冻结正式 v1.0 assets。
+使用 owner 已取得的 reserved DOI，把当前通过 Step 4/5 的双语 candidate 转换为**准备正式发布的 v1.0 frozen content**，并使用 Step 5 已验收 PDF pipeline 重新生成最终中英文 PDF。所有最终文件必须先在本地完整验收并记录 exact hashes，再上传到 Zenodo draft；本步骤结束时 Zenodo 仍必须保持 unpublished Draft，GitHub `main` 也仍不得公开包含未激活 DOI 的 final release content。
 
-本步骤只建立可验证的 draft metadata 与 DOI reservation，不把当前 candidate PDFs 当正式存档资产，不创建 Git `v1.0` tag / GitHub Release，也不把 candidate 文档提前改成 formal v1.0。
+### 重要 publication-date gate
 
-### 必须先核对
+在把 `date-released` / publication date 固化到 release metadata 前，必须以 Zenodo draft 当前 publication-date 字段与 owner 的正式发布意图为依据确认一个明确 YYYY-MM-DD。不得根据机器时间、聊天系统时间或推测自行选择日期。确认后同一日期应在最终 CFF / Zenodo record 等需要正式发布日期的地方保持一致；Markdown/PDF 若当前设计不显示发布日期，不应为了形式完整额外新增无合同要求的日期字段。
 
-执行前必须重新查询 Zenodo 官方最新文档，至少确认：
+### 本地 Git 边界
 
-1. 当前创建 new upload / record 的流程；
-2. `Reserve DOI` 的当前 UI / API 语义，以及 reservation 后何时 DOI 才公开解析；
-3. draft record 是否可在 publish 前修改 metadata / files；
-4. versioning 机制及后续 v1.1 / v2.0 与 v1.0 的关系；
-5. resource type / publication type 的当前可选项，选择应与“独立 methodology / technical article artifact”一致，不伪装成 peer-reviewed journal/conference paper；
-6. rights / license metadata 当前如何表达 All Rights Reserved，若 Zenodo 强制选择标准 license 或 rights 字段无法准确表达当前策略，则停止并交 owner 决策，不擅自改为 CC/open license；
-7. creator、title、version、publication date、related identifiers / repository URL 等字段的当前要求。
+执行前必须确认：
 
-优先使用 Zenodo 官方 help / documentation，不依赖旧教程截图。
+- `main` tracking `origin/main`；
+- working tree clean；
+- `git fetch origin --tags` 后 `origin/main...HEAD=0 0`；
+- 先 pull 最新 Runtime；
+- 不创建 tag / Release；
+- 不 push 含 reserved DOI 的 release-content commit 到 public `main`。
 
-### Draft metadata 边界
+允许在本地基于当前 `main` 准备 release staging，但应保持其未公开。若需要 Git 来固定本地 exact content，可创建**本地未 push 的 release commit**；不得创建/推送 `v1.0` tag。执行报告必须清楚区分 public remote HEAD 与 local-only staging commit。
 
-当前确定的信息：
+禁止：`git reset --hard`、`git clean -fd`、自动 stash、force push、历史重写、删除用户未授权文件。
 
-- Creator / author: `Yeming Dai`
-- Canonical repository: `https://github.com/smter6626/structured-llm-execution-framework`
-- Formal English title: `Repository-Native Execution Governance for Long-Running LLM Workflows`
-- Subtitle: `A Structured Constraint-Driven Framework for Durable Contracts, Runtime State, and Evidence-Backed Transitions`
-- Target version: `1.0`
-- Rights strategy: `Copyright © 2026 Yeming Dai. All rights reserved.`
-- Work is an evolving methodology; v1.0 will be a frozen citable snapshot, with later substantive revisions published as new versions.
+### Final v1.0 内容变更范围
 
-不得虚构：
+在不改变正文语义的前提下，只做正式版本所需 metadata 转换：
 
-- journal / conference venue；
-- peer-review status；
-- formal publication date 尚未实际确定时的日期；
-- affiliation / ORCID 等 owner 未确认的 metadata；
-- open license；
-- GitHub Release/tag 尚未存在时的 release URL。
+- README：candidate 状态 → v1.0 release-ready 状态；加入 reserved DOI 的正式 citation/DOI 入口，但当前仅保存在 local staging；
+- `structured-llm-execution-framework-zh.md`：`Version: 1.0 candidate` → `Version: 1.0`，加入 DOI；
+- `structured-llm-execution-framework-en.md`：同样正式化为 `Version: 1.0` 并加入 DOI；
+- `CITATION.cff`：`version: 1.0`、正式 `doi`、确认后的 `date-released`，保持 `preferred-citation.type=generic`、正式 title/author/repository identity；不得添加虚构 venue/open license；
+- `COPYRIGHT.md`：原则上不因 DOI 自动改变 rights；只有确有 publication-identity 文本需要同步时才做最小 metadata edit；
+- PDF build pipeline：不改变已经验收的排版逻辑，使用 `PDF_VERSION_LABEL=v1.0` 等现有入口重新生成正式文件。
 
-正式 citation title / Zenodo title 是否采用主标题单独字段、subtitle 单独字段或合并为 `Title: Subtitle`，应按 Zenodo 当前 schema/UI 支持方式选择，并保持与 CFF / README 的作品身份一致。
+若发现正文事实/claim 需要变化，停止并返回 review side；不得把内容修订混入 metadata freeze。
 
-### 文件边界
+### Final PDF 与文件验收
 
-默认**不要上传 Step 5 candidate PDFs 作为最终 files**。如果 Zenodo draft UI 允许无文件先 reserve DOI，则优先只建立 metadata + reservation。
+正式中英文 PDF 必须重新执行 Step 5 同等级别验收：
 
-如果当前 Zenodo 明确要求 draft 阶段必须先上传文件才能 reserve DOI：
+- A4/page count/file size/SHA-256；
+- 全页 render-first visual inspection；
+- missing glyph/clipping/overlap/table/code/URL overflow；
+- text extraction 与关键 token；
+- clickable link annotations；
+- DOI 在 PDF 中正确、可见；
+- `Version: 1.0` 正确且不存在 `candidate` residue；
+- exact final PDF hashes 记录下来；不得假设未来 rebuild 会 byte-identical。
 
-- 不得把 candidate PDF 伪装成 final v1.0；
-- 记录该平台约束并停止在 owner decision / revised Step 6 plan，或仅使用明确标记为 temporary/preflight 的 draft file 且确保 Publish 前可以删除替换；
-- 在没有官方证据确认可安全替换前，不自行上传临时资产。
+同时对最终 Markdown/CFF 做 residue scan：`candidate`、旧 version string、缺失 DOI、错误 DOI、CC BY/open-license claim、尚不存在的 GitHub Release URL、journal/conference venue 等不得残留或被虚构。
 
-### 人工/账号边界
+### Zenodo draft file freeze
 
-Zenodo 登录、账号授权、2FA、最终 UI confirmation 等必须由 owner 完成时，应给出精确 UI 步骤并等待 owner 返回实际 record/draft evidence。不得索取或记录密码、token、2FA code。
+只有本地 final assets 全部验收通过后，owner 才把**同一 exact files**上传 Zenodo draft。优先存档能构成正式 v1.0 package 的核心文件，并在上传后记录 Zenodo 显示的 filename/size/checksum（若 UI/API 提供），与本地 hashes 对照。
 
-### 验收证据
+本步骤内：
 
-Step 6 只有在能够验证以下事实后才能 COMPLETE：
+- 可以 Save draft / Preview（文件齐全后）；
+- 不得 Publish；
+- 不得 Submit to community review；
+- 不得删除整个 draft；
+- 不得把 Step 5 candidate PDFs 混入 final file set；
+- 不得在 public GitHub 暴露尚未激活的 DOI。
 
-- Zenodo draft record 已存在；
-- record/deposit identifier 已记录；
-- reserved DOI 已实际生成并可在 draft 中看到；
-- record 仍是 unpublished / draft，未误 Publish；
-- creator/title/version/rights/repository 等已填写字段与当前合同一致；
-- 当前没有把 candidate PDF 当成正式 frozen v1.0 asset；
-- 没有创建 Git `v1.0` tag / GitHub Release；
-- reserved DOI 被记录到 Runtime，但在 Step 7 前不提前把 candidate Markdown/PDF 宣称为最终发布版。
+### Step 7 完成条件
 
-### 完成条件
+只有以下全部满足才可 COMPLETE：
 
-证据全部通过后：
+- publication date 已由 owner/Zenodo draft 明确确认；
+- local-only final v1.0 Markdown/CFF/README metadata 一致且 DOI 正确；
+- final bilingual PDFs 重新生成并通过完整 render/text/link/hash 验收；
+- exact final file set 已上传 Zenodo draft并与本地文件对应；
+- Zenodo Preview/validation 在文件齐全后无阻塞错误，或若 Preview 仍有限制已明确记录其原因；
+- Zenodo 仍是 Draft / unpublished；
+- public GitHub `main` 仍未包含 reserved DOI release content；
+- 没有 `v1.0` tag / GitHub Release。
+
+完成后：
 
 ```text
-Step 6 COMPLETE / PASS
-Step 7 ACTIVE — DOI backfill and final v1.0 asset freeze
+Step 7 COMPLETE / PASS
+Step 8 ACTIVE — publish Zenodo and activate/verify the DOI
 ```
-
-若 Zenodo 当前 rights/license schema 与 All Rights Reserved 策略发生真实冲突，或 reservation 需要无法安全替换的提前正式文件，应判定 `BLOCKED / OWNER DECISION REQUIRED`，不得通过改变版权策略来让流程继续。
 
 ---
 
 # next steps
 
-## Step 7 — DOI 回填与最终 v1.0 asset freeze
+## Step 8 — Zenodo publish / DOI activation
 
-方向：把 reserved DOI 回填 README、中文/英文 Markdown、`CITATION.cff`，将 candidate 状态正式化为 v1.0 release content，使用 Step 5 已验收 pipeline 重新生成最终中英文 PDF，做 render/preflight/hash 验收，形成唯一 release commit。必须记录最终 PDF exact SHA-256；Chrome PDF 本身不保证跨 rebuild byte-for-byte deterministic，因此冻结的是 Step 7 实际验收的 exact assets，而不是假设未来重建会有相同 hash。
+方向：在 owner 最终确认 Zenodo draft metadata、publication date、All Rights Reserved、exact file set 与 hashes 后点击 Publish；随后立即验证 DOI 能公开解析、Zenodo landing page metadata 正确、files/checksums 与 Step 7 frozen assets 一致。Publish 后把 v1.0 Zenodo record/files 当作不可变快照，不依赖平台纠错窗口进行常规修改。
 
-## Step 8 — Git `v1.0` tag 与 GitHub Release
+## Step 9 — GitHub frozen release + citation closure
 
-方向：从 Step 7 的 exact frozen release commit 创建不可移动的 `v1.0` tag 和 GitHub Release，上传经过 hash 验收的最终资产；发布后不得静默替换。
-
-## Step 9 — Zenodo publish 与 citation closure
-
-方向：使用与 GitHub Release 完全一致的最终资产 Publish 已 reserve DOI 的 Zenodo record；核对 creator/version/date/rights/files/hash，并验证 DOI ↔ GitHub Release ↔ repository ↔ Markdown/PDF/CFF 的双向定位与后续 versioning 路线。
+方向：只有 Step 8 DOI 已公开解析后，才把 Step 7 已验收的同一 release-ready content 推送到 public `main`，形成唯一 frozen release commit；从该 exact commit 创建不可移动 `v1.0` tag 与 GitHub Release，上传与 Zenodo 对应的最终 PDF/核心资产，核对 SHA-256，并补齐 DOI ↔ GitHub Release ↔ repository ↔ Markdown/PDF/CFF/Zenodo 的双向定位。不得重新生成或静默替换 Step 7 已冻结 PDF。
 
 ## Step 10 — 可选：美国版权登记
 
