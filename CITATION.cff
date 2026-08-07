@@ -4,7 +4,9 @@ title: "Repository-Native Execution Governance for Long-Running LLM Workflows"
 authors:
   - family-names: "Dai"
     given-names: "Yeming"
-version: "1.0-candidate"
+version: "1.0"
+doi: "10.5281/zenodo.21844275"
+date-released: 2026-08-08
 repository-code: "https://github.com/smter6626/structured-llm-execution-framework"
 url: "https://github.com/smter6626/structured-llm-execution-framework"
 preferred-citation:
@@ -14,5 +16,6 @@ preferred-citation:
       given-names: "Yeming"
   title: "Repository-Native Execution Governance for Long-Running LLM Workflows: A Structured Constraint-Driven Framework for Durable Contracts, Runtime State, and Evidence-Backed Transitions"
   year: 2026
-  version: "1.0-candidate"
+  version: "1.0"
+  doi: "10.5281/zenodo.21844275"
   url: "https://github.com/smter6626/structured-llm-execution-framework"

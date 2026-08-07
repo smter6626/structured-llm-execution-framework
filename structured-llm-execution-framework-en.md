@@ -4,9 +4,11 @@
 
 Author: Yeming Dai
 
-Version: 1.0 candidate
+Version: 1.0
 
 Canonical repository: https://github.com/smter6626/structured-llm-execution-framework
+
+DOI: [10.5281/zenodo.21844275](https://doi.org/10.5281/zenodo.21844275)
 
 Copyright © 2026 Yeming Dai. All rights reserved.
 
