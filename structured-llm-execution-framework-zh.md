@@ -196,11 +196,11 @@ LLM 的验证基于 Git 仓库的实际产出，而不是 Codex 的汇报。Code
 
 ## 五、为什么这样有效
 
-**约束空间压缩**：LLM 生成幻觉的根本原因是上下文不足时需要"猜"。Static 文档提供了不可动摇的地基，LLM 在执行时无需猜测"原始需求是什么"——它被写死在那里，且 LLM 不能在普通执行步骤中随意修改。
+**约束空间压缩**：LLM 生成幻觉的一个主要来源，是上下文不足时需要"猜"。Static 文档提供了稳定的约束基础，LLM 在执行时无需猜测"原始需求是什么"——它被写死在那里，且 LLM 不能在普通执行步骤中随意修改。
 
 **局部上下文最大化**：每次执行时，LLM 的注意力集中在当前 Active Step 上，该 Step 的描述是所有步骤中最详细的。后续步骤的模糊性是刻意设计的，避免 LLM 基于假设提前做决策。
 
-**双重验证消除自评盲区**：Codex 执行后自评，LLM 独立验证。两者使用相同的 Git 仓库但处于不同的执行角色，任何 Codex 的自我合理化都会在 LLM 的独立检查中暴露。
+**双重验证减少自评盲区**：Codex 执行后自评，LLM 独立验证。两者使用相同的 Git 仓库但处于不同的执行角色，为在独立检查中发现 Codex 自评中的盲点或自我合理化提供第二个视角。
 
 **显式失效传播减少历史歧义**：旧结论并不会因为出现了一个更新的 commit 就自动从 LLM 的上下文中消失。通过在 Runtime 中显式声明 supersession，框架把“旧证据曾经成立”和“旧结论现在仍然有效”区分开，降低模型从互相矛盾的历史记录中自行推断知识有效性的风险。
 
@@ -222,7 +222,7 @@ LLM 的验证基于 Git 仓库的实际产出，而不是 Codex 的汇报。Code
 
 进入 AAAI 阶段后，相同结构被复用但没有复用旧合同。`peter_sweep_STATIC_SPEC.md` 只锁定 Adrian 指定的三条 sweep 命令、运行环境、结果边界和“不得为跑通而修改科学方法”等限制；对应 Runtime 从 Python 版本和依赖 blocker 一路记录到 production job 完成、3360/3360 个配置达到 `metrics.json` 或 `error.json` 终态，并在 Adrian 明确确认高 learning-rate 数值失败属于预期结果后完成 commit/push。这里的关键不是“让所有配置成功”，而是防止 Agent 把实验失败误判成必须修复的代码错误。
 
-第二个 AAAI 任务进一步体现了 Runtime 的动态作用。`peter_rltpm_gpu_STATIC_SPEC.md` 固定 K=3/K=5、Python 3.11 和 Adrian 的 PyTorch/CUDA/Triton/PyJuice 运行栈，只把 `-j` 并发数留作允许通过证据调优的变量。Runtime 随执行持续吸收真实证据：Triton 因缺少 `Python.h` 失败后记录并验证 task-local header 修复；K=3 在 L40S 上验证 `j=8`、显存约 12 GiB；K=5 则通过实际 telemetry 证明 L40/L40S 不应默认承担 `j=8`，最终在完整 A100 80GB 上稳定运行，峰值显存约 47.8 GiB。最终 K=3 与 K=5 均达到 28/28 artifacts complete，并按批次审计、commit、push。Static 没有因为这些运行时发现而被污染成日志，Runtime 也没有把临时资源状态误写成永久科学约束。
+第二个 AAAI 任务进一步体现了 Runtime 的动态作用。`peter_rltpm_gpu_STATIC_SPEC.md` 固定 K=3/K=5、Python 3.11 和 Adrian 的 PyTorch/CUDA/Triton/PyJuice 运行栈，只把 `-j` 并发数留作允许通过证据调优的变量。Runtime 随执行持续吸收真实证据：Triton 因缺少 `Python.h` 失败后记录并验证 task-local header 修复；K=3 在 L40S 上验证 `j=8`、显存约 12 GiB；K=5 则通过实际 telemetry 表明 L40/L40S 不应默认承担 `j=8`，最终在完整 A100 80GB 上稳定运行，峰值显存约 47.8 GiB。最终 K=3 与 K=5 均达到 28/28 artifacts complete，并按批次审计、commit、push。Static 没有因为这些运行时发现而被污染成日志，Runtime 也没有把临时资源状态误写成永久科学约束。
 
 **框架在这个案例中解决的核心问题**：长期科研项目的“下一步”会不断变化，但每个具体任务的科学边界又必须保持稳定。若使用一份不断增长的总计划，早期 runDRO 的 dataset、runner、Slurm 和 artifact 假设很容易污染后来的 PeTeR/AAAI 任务；反过来，如果每次只看最新 Runtime，又会失去“TPM 已收口、AAAI 已另开任务”的长期状态。这里通过 task-local Static/Runtime 与跨任务 History 的分层，把“研究主线连续”与“执行合同不连续”同时表达出来。
 
