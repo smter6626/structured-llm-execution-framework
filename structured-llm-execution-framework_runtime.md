@@ -3,7 +3,7 @@
 ## Current Status
 
 ```text
-ACTIVE — Step 2 is active; Step 2.3 rights statement is complete and Step 2.4 (CITATION.cff) is the current substep
+ACTIVE — Step 2 is active; Step 2.4 citation metadata is complete and Step 2.5 (README sync) is the current substep
 ```
 
 当前 canonical repository：
@@ -43,106 +43,87 @@ ACTIVE — Step 2 is active; Step 2.3 rights statement is complete and Step 2.4 
 - 2026-08-07：Step 2.1 related-work 审校发现第八节存在两类事实/定位问题：原文把 ReAct 与 CoT 一并概括为“单次推理”不够准确；同时只比较 AutoGPT / SOP 已不足以覆盖 2025–2026 的主流 structured-spec、context-engineering 和 agent-runtime 实践。已在 commit `4fcefd36666eef4f7c713fabda5e449dafb70c56`（`docs: update related-work positioning for v1.0 review`）中只修改第八节：更正 CoT / ReAct 定位，新增 GitHub Spec Kit / Kiro Specs、context engineering / `AGENTS.md` / `CLAUDE.md` / Steering、LangGraph / OpenAI Agents SDK / AutoGen 的比较，并修正“传统 SOP 是静态的”这一过度概括。commit diff 已复核，除第八节外无其他正文变化；该修改属于 editorial / factual positioning correction，不改变 Static 合同或框架核心定义。
 - 2026-08-07：owner 明确要求从 Step 2.1 继续进入 Step 2.2；当前没有新的 2.1 blocker 被提出，因此按 owner acceptance 结束本轮中文正文审校子步骤，后续若在 Step 2.6 独立验收中发现新的事实/结构问题仍可回退修正。
 - 2026-08-07：Step 2.2 完成。commit `ae3d866afc85f155aea2268c9647d528403625e7`（`docs: add v1.0 candidate authorship metadata`）只在中文正文标题下新增四项 publication metadata：`Author: Yeming Dai`、`Version: 1.0 candidate`、canonical repository，以及 `© 2026 Yeming Dai. All rights reserved.`。commit diff 已复核，除这四项元数据外正文无其他变化；没有写入 DOI、正式 `v1.0`、版权登记或开放许可证声明。
-- 2026-08-07：Step 2.3 完成。commit `1a107cfef285e13dabf880fa39e9e1b6f158ee6d`（`docs: add copyright and rights statement`）新增 `COPYRIGHT.md`。文件明确 `Copyright © 2026 Yeming Dai. All rights reserved.`，说明仓库当前未授予 CC / MIT / Apache / GPL 等开放许可；把版权主张限制在具体文字表达、组织、选择、结构、案例呈现和其他可受保护的人类原创贡献；明确不主张通过版权垄断抽象思想、方法、系统、程序或独立实现；保留正常引用、评论、批评、学术使用和法律允许例外；如实披露 LLM-assisted drafting / editing / analysis / implementation support，并记录作者对证据选择、范围、术语、结构、事实核验、修订与最终发布的决定；同时明确该文件不是政府版权登记证明或法律意见。GitHub 回读 blob SHA=`98b7814b82d11c9d0727fedbfe3a3203e690db94`，内容与 Static rights boundary 一致。Step 2.4 成为当前子步骤。
+- 2026-08-07：Step 2.3 完成。commit `1a107cfef285e13dabf880fa39e9e1b6f158ee6d`（`docs: add copyright and rights statement`）新增 `COPYRIGHT.md`。文件明确 `Copyright © 2026 Yeming Dai. All rights reserved.`，说明仓库当前未授予 CC / MIT / Apache / GPL 等开放许可；把版权主张限制在具体文字表达、组织、选择、结构、案例呈现和其他可受保护的人类原创贡献；明确不主张通过版权垄断抽象思想、方法、系统、程序或独立实现；保留正常引用、评论、批评、学术使用和法律允许例外；如实披露 LLM-assisted drafting / editing / analysis / implementation support，并记录作者对证据选择、范围、术语、结构、事实核验、修订与最终发布的决定；同时明确该文件不是政府版权登记证明或法律意见。GitHub 回读 blob SHA=`98b7814b82d11c9d0727fedbfe3a3203e690db94`，内容与 Static rights boundary 一致。
+- 2026-08-07：owner 冻结英文正式标题为 **Repository-Native Execution Governance for Long-Running LLM Workflows**，英文副标题为 **A Structured Constraint-Driven Framework for Durable Contracts, Runtime State, and Evidence-Backed Transitions**。中文标题与副标题保持现状，不要求逐字镜像；英文标题用于后续 CFF、英文正文、PDF、Zenodo/DOI 与 CV/portfolio identity，除非 owner 明确批准改名。
+- 2026-08-07：Step 2.4 完成。执行前重新核对 GitHub 官方 CITATION 文档与 Citation File Format 1.2.0 schema guide：GitHub 支持根目录 `CITATION.cff`，并支持使用 `preferred-citation` 将引用重定向到非软件成果；`type: generic` 为合法 reference 类型。候选 CFF 在写入前通过本地 YAML parser 基础解析；当前环境未安装 `cffconvert`，因此没有伪造官方 validator 结果，而是依据 CFF 1.2.0 官方 schema guide 对字段名、必填项和层级进行人工核对。commit `dcc982a188ca0e9161d7b5b3058cdf7148203697`（`docs: add candidate citation metadata`）新增根目录 `CITATION.cff`：作者为 Yeming Dai，top-level version=`1.0-candidate`，canonical repository 正确；`preferred-citation.type=generic`，其 title 使用正式英文标题与副标题合并后的完整 citation title，year=`2026`，version=`1.0-candidate`。文件明确没有 `doi`、`date-released`、`license` 或 publication venue 字段。GitHub `main` 回读 blob SHA=`fb7162973a72ae263efe6a00cd6080e789a683ee`，内容与预期一致。当前 GitHub 连接器不暴露 citation UI，公开网页抓取也因 cache miss 无法独立读取 “Cite this repository” 实际渲染，因此该 UI 渲染检查作为 Step 2.6 的显式验收项保留；不把它伪装成已验证。Step 2.5 成为当前子步骤。
 
 ---
 
 # active step
 
-## Step 2.4 — 建立并验证 `CITATION.cff`
+## Step 2.5 — README 同步
 
 ### 目标
 
-在不虚构正式 v1.0、DOI、release date 或开放许可证的前提下，为当前 v1.0 candidate 建立机器可读的 Citation File Format（CFF）元数据，使 GitHub 和后续 Zenodo / DOI 流程能够识别作者、工作标题、版本和 canonical repository。
+把 `README.md` 从迁移初期的 Pre-v1.0 landing page 同步为当前 **v1.0 candidate** 的 canonical project landing page，使项目身份、作者、正式英文标题、中文候选稿、rights、citation metadata 和 provenance 从仓库首页即可被准确理解。
 
-本子步骤只处理 citation metadata，不创建正式 `v1.0` tag / GitHub Release，不生成 DOI，不修改 Static，也不开始美国版权登记。
+本子步骤只同步 README 与 Runtime，不修改方法论正文，不创建正式 `v1.0` tag / Release，不生成 DOI，不创建 PDF，也不开始美国版权登记。
 
 ### 必须读取
 
 执行前重新读取：
 
-1. `structured-llm-execution-framework_static.md`
-2. `structured-llm-execution-framework_runtime.md`
-3. `structured-llm-execution-framework-zh.md`
-4. `COPYRIGHT.md`
-5. `README.md`
+1. `README.md`
+2. `structured-llm-execution-framework-zh.md`
+3. `COPYRIGHT.md`
+4. `CITATION.cff`
+5. `structured-llm-execution-framework_static.md`
+6. `structured-llm-execution-framework_runtime.md`
 
-### 实现要求
+### README 必须同步的内容
 
-建立仓库根目录 `CITATION.cff`，采用当前 GitHub / Citation File Format 官方支持的 CFF 1.2.0 结构。
-
-由于仓库承载的是方法论文章/框架，而不是希望被当作软件包引用的程序：
-
-- 使用 `preferred-citation` 指向框架文章本身；
-- 在正式出版类型尚未锁定前，优先使用 `type: generic`；
-- 不提前声称 journal article / conference paper；
-- 英文工作标题应与后续 Step 3 的英文正式版保持一致，除非 owner 明确批准改名。
-
-候选字段至少包括：
-
-```text
-cff-version: 1.2.0
-message
-title
-authors
-version: 1.0-candidate
-repository-code / url
-preferred-citation.type: generic
-preferred-citation.title
-preferred-citation.authors
-preferred-citation.year: 2026
-preferred-citation.url
-```
+- H1 使用已冻结的正式英文标题：`Repository-Native Execution Governance for Long-Running LLM Workflows`；
+- 标题下显示已冻结英文副标题：`A Structured Constraint-Driven Framework for Durable Contracts, Runtime State, and Evidence-Backed Transitions`；
+- `Author: Yeming Dai`；
+- 状态明确为 `v1.0 candidate`，不能写成正式 `v1.0`；
+- 中文正文入口明确标记为当前 Chinese v1.0 candidate；
+- 英文版仍标记为 Step 3 / planned，不提前声称已完成；
+- 保留并清楚表达 canonical repository 与原 `smter6626/sharable` provenance 的关系；
+- 新增 `Rights` 入口到 `COPYRIGHT.md`；
+- 新增 `Citation` 入口到 `CITATION.cff`；
+- 明确当前没有 DOI、正式 GitHub Release、PDF 或 Copyright Office registration；
+- 保留 Static / Runtime 作为 internal execution-control documents 的说明，不把它们误当成 primary publication artifact。
 
 ### 禁止事项
 
-- 没有真实 DOI 前不得写 `doi`；
-- candidate 阶段不得用当前日期冒充正式 `date-released`；
-- 当前 `All rights reserved`，不得为了填 `license` 字段虚构 SPDX / open license；
-- 不得把作者写成 LLM / OpenAI / Anthropic / Codex；
-- 不得把本仓库描述成已正式发表的 journal / conference paper；
-- 不修改正文方法论内容。
+- 不修改中文正文内容；
+- 不把英文版写成已经发布；
+- 不虚构 DOI、release date、publication venue、正式 v1.0 或版权登记；
+- 不增加开放许可证；
+- 不删除 provenance 链接；
+- 不把 `COPYRIGHT.md` 描述成政府登记证明。
 
 ### 验证
 
-至少完成：
+完成 README 修改后：
 
-1. YAML 语法解析通过；
-2. CFF 1.2.0 关键字段与层级人工核对；
-3. 若执行环境可用官方 CFF validator / schema validator，则增加 schema validation；
-4. 从 GitHub `main` 回读 `CITATION.cff`，确认写入内容与预期一致；
-5. 如果 GitHub 出现 “Cite this repository”，检查生成 citation 不包含不存在的 DOI、正式 release date 或开放许可证。
+1. 从 GitHub `main` 回读 README；
+2. 核对标题、副标题、作者、版本状态与 `CITATION.cff` 一致；
+3. 核对 rights 状态与 `COPYRIGHT.md` 一致；
+4. 核对 provenance 链接仍指向旧 `sharable` 正文和历史；
+5. 核对没有提前出现 DOI / PDF /正式 Release / registration claim；
+6. 将 commit SHA 与回读证据追加到 Runtime `done`，然后把 Step 2.6 提升为当前子步骤。
 
 ### 验收条件
 
-- [ ] `CITATION.cff` 已创建；
+- [ ] README 使用正式英文标题与副标题；
 - [ ] 作者为 Yeming Dai；
-- [ ] version 明确为 candidate，而不是正式 v1.0；
-- [ ] canonical repository 正确；
-- [ ] `preferred-citation` 指向框架文章；
-- [ ] 没有虚构 DOI / release date / license / publication venue；
-- [ ] 基础 YAML / CFF 验证通过；
-- [ ] GitHub 回读验证通过；
-- [ ] 完成 commit SHA 和验证证据追加到 `done`；
-- [ ] 验收后 Step 2.5 成为唯一当前子步骤。
-
-### 失败 / 阻塞处理
-
-- 如果 CFF 字段或 `preferred-citation` 语义不确定：先查当前官方 CFF / GitHub 文档，不凭记忆猜字段。
-- 如果 GitHub citation UI 把框架错误呈现为软件且 `preferred-citation` 无法纠正：记录实际行为并暂停，不通过虚构 publication type 修复 UI。
-- 如果英文工作标题需要改变框架定位：停止并交 owner 决定。
+- [ ] 状态为 v1.0 candidate；
+- [ ] 中文候选稿与未来英文版状态表达准确；
+- [ ] Rights / Citation 入口可定位；
+- [ ] provenance 保留；
+- [ ] 无虚构 DOI / Release / PDF / registration / open license；
+- [ ] GitHub 回读一致；
+- [ ] 完成证据写入 Runtime；
+- [ ] Step 2.6 成为唯一当前子步骤。
 
 ---
 
 # next steps
 
-## Step 2.5 — README 同步
-
-方向：把 README 更新为 v1.0 candidate 的 canonical landing page，增加 Rights 与 Citation 入口，保留 provenance，英文版仍标记为下一阶段。
-
 ## Step 2.6 — 独立验收与 Step 2 收口
 
-方向：重新从 GitHub `main` 拉取正文、README、`COPYRIGHT.md`、`CITATION.cff`、Static 和 Runtime，核对作者、版本、rights、canonical repository、Case A/B 事实和无虚构状态；全部通过后关闭 Step 2，并把 Step 3 提升为唯一 active step。
+方向：重新从 GitHub `main` 拉取正文、README、`COPYRIGHT.md`、`CITATION.cff`、Static 和 Runtime；核对作者、版本、rights、canonical repository、Case A/B 事实和无虚构状态，并对 GitHub “Cite this repository” 实际渲染做最终检查。全部通过后关闭 Step 2，并把 Step 3 提升为唯一 active step。
 
 ## Step 3 — 制作英文正式版
 
