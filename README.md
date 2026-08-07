@@ -11,9 +11,9 @@ A structured constraint-driven LLM execution framework for reliable, auditable m
 ## Current publication
 
 - [中文 v1.0 candidate](structured-llm-execution-framework-zh.md)
-- English version: in preparation for the v1.0 formalization process
+- [English v1.0 candidate](structured-llm-execution-framework-en.md)
 
-The Chinese candidate is the current source text for the formalization process. The English version will be produced from this candidate and reviewed for factual and terminological consistency before the formal v1.0 release.
+The English candidate has been produced from the Chinese candidate and has passed the Step 3 content/parity and publication-metadata review. Both remain candidate artifacts pending the later bilingual release-candidate review and the formal v1.0 release.
 
 ## Versioning
 
