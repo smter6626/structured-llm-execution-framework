@@ -3,7 +3,7 @@
 ## Current Status
 
 ```text
-ACTIVE — Step 6 COMPLETE / PASS; Step 7 local DOI-backed final v1.0 staging and Zenodo draft file freeze is the sole active step
+ACTIVE — Step 8 COMPLETE / PASS; Step 9 GitHub frozen v1.0 release and citation closure is the sole active step
 ```
 
 当前 canonical repository：
@@ -68,114 +68,56 @@ ACTIVE — Step 6 COMPLETE / PASS; Step 7 local DOI-backed final v1.0 staging an
 - 2026-08-07：Step 6 开始前重新核对 Zenodo 官方 deposit / DOI / license / versioning 文档及 DataCite DOI state 规则。当前证据确认：Zenodo `Reserve DOI` 在 draft 中只预留 identifier，只有 record `Publish` 后才正式注册并开始公开解析；DataCite Draft state 不在全局 Handle System / 公共 discovery 中激活，因此不应把尚未激活的 draft DOI 提前作为公开 citation identifier 使用。Zenodo License 字段默认 CC BY 4.0，但官方支持 custom license；因此本项目继续使用 `All rights reserved` custom rights statement，不改变既有版权策略。Step 4 形成的“Step 7 public DOI backfill → Step 8 GitHub Release → Step 9 Zenodo publish”未来顺序由此发现会制造公开死链窗口，现被本条 evidence-backed decision 再次显式 supersede。
 - 2026-08-07：owner 在 Zenodo 建立 unpublished draft 并实际取得 reserved DOI。owner 截图核验 draft metadata：Resource type=`Publication / Technical note`；正式英文主标题与 subtitle 正确；中文 translated title=`结构化约束驱动的 LLM 执行框架`；Creator=`Dai, Yeming`；Description 使用当前英文 Abstract；默认 CC BY 已移除，只保留 custom `All rights reserved`，并设置 `Copyright © 2026 Yeming Dai. All rights reserved.`；Languages=`English` + `Mandarin Chinese`；Version=`1.0`；Publisher=`Zenodo`；keywords 已填写；candidate PDFs 未上传。Preview 因 Zenodo Files validation 要求至少存在一个文件而不可显示，但这是预期的平台校验，不是 metadata blocker。record 仍为 Draft，未 Publish，也未创建 Git `v1.0` tag / GitHub Release。由于 canonical Runtime 本身是公开 GitHub 文件，reserved DOI 的 exact string / draft identifier 在激活前**故意不写入公开 Runtime**；精确值由 owner 的 Zenodo draft 与本轮私有审阅上下文保存。该做法显式 supersede Step 6 早期“把 reserved DOI exact value 记录到 public Runtime”的字面要求，避免公开传播尚未解析的 Draft-state DOI。
 - 2026-08-07：**Step 6 COMPLETE / PASS**。Zenodo unpublished draft、reserved DOI、双语/title/creator/version/ARR rights metadata 均已建立并经 owner screenshot audit；当前没有上传 preflight candidate PDFs、没有误 Publish、没有公开 tag/Release。后续有效顺序更新为：Step 7 在本地使用 reserved DOI 形成并验收 exact final v1.0 Markdown/CFF/PDF，随后把 exact final files 上传并冻结在 Zenodo draft（仍不 Publish、仍不把 DOI push 到 public GitHub）→ Step 8 Publish Zenodo 以激活 DOI，并立即验证 DOI resolution / record metadata / file hashes → Step 9 将已验收的同一 release content 推送为 GitHub frozen release commit，创建不可移动 `v1.0` tag + GitHub Release，并完成 DOI ↔ Release ↔ repository ↔ citation metadata cross-link closure → Step 10 optional U.S. Copyright Office registration。
+- 2026-08-08：**Step 7 COMPLETE / PASS**。owner 确认 formal publication date=`2026-08-08`。基于 public `main` 建立 local-only branch `release/v1.0-staging`，并用 commit `365710cd6dd17e681b6e241db54769999062438c`（`release: stage v1.0 DOI-backed publication assets`）冻结 release-ready tracked content；该 commit 只修改 `README.md`、`structured-llm-execution-framework-zh.md`、`structured-llm-execution-framework-en.md` 与 `CITATION.cff`，两篇文章 body 没有语义修改。最终中文 PDF SHA-256=`e0218e643937d0e74c442cdab5ecb8fb258044781b611dc8a9a081e4b3bef9e9`，最终英文 PDF SHA-256=`44ec7ca4050f49a5fb8bffab3a2138aacf876baef424f072f119ce001851f7a1`；两份 final PDF 已通过独立 review。Zenodo exact 6-file upload set 与 review bundle hashes 对应，Zenodo Preview 在正式 Publish 前通过，Step 7 final upload set 自此冻结。
+- 2026-08-08：**Step 8 COMPLETE / PASS**。Zenodo record 已正式 Publish：published date=`2026-08-08`，Version=`1.0`，specific version DOI=`10.5281/zenodo.21844275`，all-versions DOI=`10.5281/zenodo.21844274`，public record=`https://zenodo.org/records/21844275`，Rights=`All rights reserved`。正式 record 保留 Step 7 的 6 个 exact frozen files。owner 已在未登录 / Incognito 环境中成功访问 record，并确认 DOI resolver `https://doi.org/10.5281/zenodo.21844275` 跳转到正式 Zenodo record。Publish 后该版本作为 frozen version snapshot 管理，不依赖 Zenodo 的后续纠错窗口进行普通修改。
 
 ---
 
 # active step
 
-## Step 7 — local DOI-backed final v1.0 staging + Zenodo draft file freeze
+## Step 9 — GitHub frozen v1.0 release + citation closure
 
 ### 当前判定
 
 ```text
-ACTIVE — Zenodo draft and reserved DOI exist but the DOI is not publicly activated; prepare and independently verify the exact final v1.0 release artifacts locally, then place those exact files in the Zenodo draft without publishing or exposing the draft DOI on public GitHub
+ACTIVE — publish the independently verified Step 7 release-content commits to public `main`, create the immutable `v1.0` tag and GitHub Release from that exact commit, and verify the downloaded release assets against the frozen hashes
 ```
 
 ### 目标
 
-使用 owner 已取得的 reserved DOI，把当前通过 Step 4/5 的双语 candidate 转换为**准备正式发布的 v1.0 frozen content**，并使用 Step 5 已验收 PDF pipeline 重新生成最终中英文 PDF。所有最终文件必须先在本地完整验收并记录 exact hashes，再上传到 Zenodo draft；本步骤结束时 Zenodo 仍必须保持 unpublished Draft，GitHub `main` 也仍不得公开包含未激活 DOI 的 final release content。
+在 specific version DOI 已公开激活、Step 7 exact assets 已冻结并通过独立 review 的前提下，将 local-only staging branch 以 fast-forward 方式发布到 public `main`。从包含 release content 与 Step 7/8 closure evidence 的 exact commit 创建不可移动 annotated `v1.0` tag，再创建 GitHub Release，上传与 Zenodo 对应的 6 个 frozen files 和额外 `SHA256SUMS` integrity asset。发布前后均不得重新生成或替换 Step 7 PDF。
 
-### 重要 publication-date gate
+### 当前 authoritative publication identity
 
-在把 `date-released` / publication date 固化到 release metadata 前，必须以 Zenodo draft 当前 publication-date 字段与 owner 的正式发布意图为依据确认一个明确 YYYY-MM-DD。不得根据机器时间、聊天系统时间或推测自行选择日期。确认后同一日期应在最终 CFF / Zenodo record 等需要正式发布日期的地方保持一致；Markdown/PDF 若当前设计不显示发布日期，不应为了形式完整额外新增无合同要求的日期字段。
+- Formal publication date: `2026-08-08`
+- Version: `1.0`
+- Specific version DOI: `10.5281/zenodo.21844275`
+- All-versions DOI: `10.5281/zenodo.21844274`
+- Zenodo record: `https://zenodo.org/records/21844275`
+- Rights: `Copyright © 2026 Yeming Dai. All rights reserved.`
 
-### 本地 Git 边界
+### Git 与 release 边界
 
-执行前必须确认：
+- public `main` 必须以 fast-forward 接收 staging commits；禁止 force push、rebase 或 history rewrite。
+- 只有 `origin/main` 与 release snapshot HEAD 完全一致后，才可创建 annotated `v1.0` tag；tag 发布后不得移动或删除。
+- GitHub Release 必须先作为 Draft 创建并核对 7 个 explicit assets，且不得使用 asset clobber。
+- 只有 UTC 日期进入 `2026-08-08` 后，才可 Publish GitHub Release。
+- 发布后必须重新下载 7 个 assets；6 个核心文件必须与 Step 7 frozen SHA-256 完全一致，`SHA256SUMS` 必须验证通过。
+- 不得重新生成 PDF，不得修改 Zenodo files，不得创建 Zenodo New version。
 
-- `main` tracking `origin/main`；
-- working tree clean；
-- `git fetch origin --tags` 后 `origin/main...HEAD=0 0`；
-- 先 pull 最新 Runtime；
-- 不创建 tag / Release；
-- 不 push 含 reserved DOI 的 release-content commit 到 public `main`。
-
-允许在本地基于当前 `main` 准备 release staging，但应保持其未公开。若需要 Git 来固定本地 exact content，可创建**本地未 push 的 release commit**；不得创建/推送 `v1.0` tag。执行报告必须清楚区分 public remote HEAD 与 local-only staging commit。
-
-禁止：`git reset --hard`、`git clean -fd`、自动 stash、force push、历史重写、删除用户未授权文件。
-
-### Final v1.0 内容变更范围
-
-在不改变正文语义的前提下，只做正式版本所需 metadata 转换：
-
-- README：candidate 状态 → v1.0 release-ready 状态；加入 reserved DOI 的正式 citation/DOI 入口，但当前仅保存在 local staging；
-- `structured-llm-execution-framework-zh.md`：`Version: 1.0 candidate` → `Version: 1.0`，加入 DOI；
-- `structured-llm-execution-framework-en.md`：同样正式化为 `Version: 1.0` 并加入 DOI；
-- `CITATION.cff`：`version: 1.0`、正式 `doi`、确认后的 `date-released`，保持 `preferred-citation.type=generic`、正式 title/author/repository identity；不得添加虚构 venue/open license；
-- `COPYRIGHT.md`：原则上不因 DOI 自动改变 rights；只有确有 publication-identity 文本需要同步时才做最小 metadata edit；
-- PDF build pipeline：不改变已经验收的排版逻辑，使用 `PDF_VERSION_LABEL=v1.0` 等现有入口重新生成正式文件。
-
-若发现正文事实/claim 需要变化，停止并返回 review side；不得把内容修订混入 metadata freeze。
-
-### Final PDF 与文件验收
-
-正式中英文 PDF 必须重新执行 Step 5 同等级别验收：
-
-- A4/page count/file size/SHA-256；
-- 全页 render-first visual inspection；
-- missing glyph/clipping/overlap/table/code/URL overflow；
-- text extraction 与关键 token；
-- clickable link annotations；
-- DOI 在 PDF 中正确、可见；
-- `Version: 1.0` 正确且不存在 `candidate` residue；
-- exact final PDF hashes 记录下来；不得假设未来 rebuild 会 byte-identical。
-
-同时对最终 Markdown/CFF 做 residue scan：`candidate`、旧 version string、缺失 DOI、错误 DOI、CC BY/open-license claim、尚不存在的 GitHub Release URL、journal/conference venue 等不得残留或被虚构。
-
-### Zenodo draft file freeze
-
-只有本地 final assets 全部验收通过后，owner 才把**同一 exact files**上传 Zenodo draft。优先存档能构成正式 v1.0 package 的核心文件，并在上传后记录 Zenodo 显示的 filename/size/checksum（若 UI/API 提供），与本地 hashes 对照。
-
-本步骤内：
-
-- 可以 Save draft / Preview（文件齐全后）；
-- 不得 Publish；
-- 不得 Submit to community review；
-- 不得删除整个 draft；
-- 不得把 Step 5 candidate PDFs 混入 final file set；
-- 不得在 public GitHub 暴露尚未激活的 DOI。
-
-### Step 7 完成条件
+### Step 9 完成条件
 
 只有以下全部满足才可 COMPLETE：
 
-- publication date 已由 owner/Zenodo draft 明确确认；
-- local-only final v1.0 Markdown/CFF/README metadata 一致且 DOI 正确；
-- final bilingual PDFs 重新生成并通过完整 render/text/link/hash 验收；
-- exact final file set 已上传 Zenodo draft并与本地文件对应；
-- Zenodo Preview/validation 在文件齐全后无阻塞错误，或若 Preview 仍有限制已明确记录其原因；
-- Zenodo 仍是 Draft / unpublished；
-- public GitHub `main` 仍未包含 reserved DOI release content；
-- 没有 `v1.0` tag / GitHub Release。
-
-完成后：
-
-```text
-Step 7 COMPLETE / PASS
-Step 8 ACTIVE — publish Zenodo and activate/verify the DOI
-```
-
----
+- Step 7 release content 与本条 Step 7/8 closure Runtime commit 已 fast-forward 到 public `main`；
+- annotated `v1.0` tag 指向 exact release snapshot commit 并已 push；
+- GitHub Release 在 publication-time gate 后正式发布，且不是 prerelease；
+- 7 个 release assets 的 name/size 正确；
+- download-back 后 6 个核心文件 hash 与 Step 7 frozen values 完全一致，`SHA256SUMS` 验证通过；
+- repository / Markdown / PDF / CFF / Zenodo / GitHub Release 能围绕 specific DOI 相互定位；
+- Runtime 不在本执行侧提前标记 Step 9 COMPLETE，最终状态由独立 review side 验收后推进。
 
 # next steps
-
-## Step 8 — Zenodo publish / DOI activation
-
-方向：在 owner 最终确认 Zenodo draft metadata、publication date、All Rights Reserved、exact file set 与 hashes 后点击 Publish；随后立即验证 DOI 能公开解析、Zenodo landing page metadata 正确、files/checksums 与 Step 7 frozen assets 一致。Publish 后把 v1.0 Zenodo record/files 当作不可变快照，不依赖平台纠错窗口进行常规修改。
-
-## Step 9 — GitHub frozen release + citation closure
-
-方向：只有 Step 8 DOI 已公开解析后，才把 Step 7 已验收的同一 release-ready content 推送到 public `main`，形成唯一 frozen release commit；从该 exact commit 创建不可移动 `v1.0` tag 与 GitHub Release，上传与 Zenodo 对应的最终 PDF/核心资产，核对 SHA-256，并补齐 DOI ↔ GitHub Release ↔ repository ↔ Markdown/PDF/CFF/Zenodo 的双向定位。不得重新生成或静默替换 Step 7 已冻结 PDF。
 
 ## Step 10 — 可选：美国版权登记
 
