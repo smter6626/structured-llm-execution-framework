@@ -2,7 +2,7 @@
 
 Copyright © 2026 Yeming Dai. All rights reserved.
 
-This rights statement applies to the original written expression, organization, selection, coordination, explanatory structure, case-study presentation, and other protectable authorship contained in the **Structured Constraint-Driven LLM Execution Framework** and its official language versions and fixed publication artifacts, except where third-party material is separately identified.
+This rights statement applies to the original written expression, organization, selection, coordination, explanatory structure, case-study presentation, and other protectable authorship contained in **Repository-Native Execution Governance for Long-Running LLM Workflows** (Chinese title: **结构化约束驱动的 LLM 执行框架**) and its official language versions and fixed publication artifacts, except where third-party material is separately identified.
 
 ## Rights status
 
