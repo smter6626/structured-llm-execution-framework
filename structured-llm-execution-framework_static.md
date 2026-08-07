@@ -4,9 +4,17 @@
 
 本合同管理 **Structured Constraint-Driven LLM Execution Framework** 的正式化、作者身份固化、版本冻结、引用与长期 provenance（来源追踪）工作。
 
-当前中文正文位于：
+正式 canonical repository：
 
-- `structured-llm-execution-framework/structured-llm-execution-framework-zh.md`
+- `smter6626/structured-llm-execution-framework`
+
+当前中文正文位于 canonical repository 根目录：
+
+- `structured-llm-execution-framework-zh.md`
+
+迁移前的早期公开正文与 Git provenance 继续保留于：
+
+- `smter6626/sharable/structured-llm-execution-framework/`
 
 本任务的目标不是阻止他人学习、借鉴或独立使用 Static / Runtime / History 等抽象思想；目标是建立一条足够清晰、公开、可验证的证据链，使外部读者能够确认：该框架的具体文章、结构化论述、案例组织和正式版本由作者 **Yeming Dai** 创作、整理、公开并持续维护。
 
@@ -51,11 +59,11 @@
 
 ## 4. Canonical Repository 原则
 
-文章应从当前杂项仓库 `smter6626/sharable` 拆分到独立仓库。默认目标仓库名称：
+正式 canonical repository 固定为：
 
 - `smter6626/structured-llm-execution-framework`
 
-除非项目所有者明确改变命名，否则新仓库应成为后续正式版本、英文版、Release、DOI 和引用元数据的唯一 canonical repository。
+该仓库负责后续正式版本、英文版、Release、DOI 和引用元数据。`smter6626/sharable` 不再作为正式版本的 canonical source，但继续保留迁移前的早期公开开发历史和原始 commits，作为 provenance evidence。
 
 ### 4.1 迁移必须保留 provenance
 
