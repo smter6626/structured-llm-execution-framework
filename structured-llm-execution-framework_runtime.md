@@ -3,7 +3,7 @@
 ## Current Status
 
 ```text
-ACTIVE — Step 2 COMPLETE; Step 3 (English formal version) is the sole active step
+ACTIVE — Step 2 COMPLETE; Step 3 is active; Step 3.1 initial English candidate is complete and Step 3.2 bilingual repair/re-verification is the sole active substep
 ```
 
 当前 canonical repository：
@@ -55,225 +55,92 @@ ACTIVE — Step 2 COMPLETE; Step 3 (English formal version) is the sole active s
 - 2026-08-07：Step 2.6 Case B 关键事实重新由 `smter6626/AudioShifter` 核验：`docs/map_win_8.2.md` 记录首次仓库盘点 `2026-08-02 21:41:44 MST`；`docs/macos_rebuild_runtime.md` 记录 130-test MVP、打包与发布状态演化；`macos/release/release_verification_v0.1.0-alpha.3.md` 记录最终 `165 passed, 0 failed, 0 skipped`、75 thin-arm64 Mach-O、324 dynamic references、20 `LC_RPATH`、四格式真实处理、源文件保护、取消/冲突处理、GPL 对应源码、非开发机验收，以及 `2026-08-04T13:39:17Z` 公开 Pre-release。首扫到公开发布的时间差重新计算为 32h57m33s，正文写作“约 32 小时 58 分钟，约 33 小时”准确。
 - 2026-08-07：Step 2.6 发布状态/许可边界复核：canonical repo 仍为 public、default branch=`main`；读取 `README.md` at ref `v1.0` 返回 `No commit found for the ref v1.0`，证明当前没有名为 `v1.0` 的 Git ref；根目录 `LICENSE` 与 `LICENSE.md` 均不存在，rights 仍由 `COPYRIGHT.md` 的 All Rights Reserved 管理。当前 GitHub 连接器不提供 Release list / citation UI 的直接读取接口，公开网页读取又无法稳定取得这些动态 UI，因此没有把“Release 列表为空”或 “Cite this repository UI 显示正确”伪装成独立 PASS；这是明确的**非阻塞 UI verification limitation**。CFF 文件本身、candidate 状态和无正式 `v1.0` ref 均已由仓库接口独立验证。
 - 2026-08-07：**Step 2 COMPLETE / PASS**。中文版 v1.0 candidate 已完成本轮事实与结构审校；作者、candidate version、canonical repository、rights、CFF 与 README 一致；provenance 保持完整；Case A/B 关键事实重新核验；没有发现虚构 DOI、正式 release date、publication venue、Copyright Office registration 或开放许可证。Step 3（英文正式版）成为唯一 active step。
+- 2026-08-07：Step 3.1 完成执行侧初稿。Codex 在 clean `main`（初始 HEAD `2be4276f041d0ac40b2b1642398cbaf96661640d`，`origin/main...HEAD=0 0`）完整读取 Static、Runtime、中文正文、README、CFF、COPYRIGHT 后，新建唯一 canonical 英文文件 `structured-llm-execution-framework-en.md`，commit `dc9b5f7a3aa141ee30fc8e0137d997b66f06a762`（`docs: add initial English v1.0 candidate draft`）并 push 到 `origin/main`。GitHub 独立回读确认该 commit 仅新增英文文件、339 lines / 339 insertions，英文文件 blob SHA=`6e1a9eda74d2d88e5cba7a0ff598e5428ba18bbd`；README、Runtime、Static、中文正文、CFF、COPYRIGHT 未被 Codex 修改。Codex 报告的 SHA-256=`436f7e6e6230fefafcfeebc91ad9512109b245be6956b61a8a6c211b29425216` 当前未由 GitHub 连接器独立重算，因此仅记为 execution-side evidence。
+- 2026-08-07：Step 3.2 独立中英审阅已完成第一轮。结构、Static/Runtime/History 定义、Step 0–4.4、State Transition Evidence、Decision Supersession、Case A/B、四档 Proportional Rigor、7 个 misuse risks 与 5 类 related work 均覆盖；未发现 novelty / universal reliability / peer-reviewed publication 等 claim-strength 升级，macOS 27 限定、3360 terminal-state 语义、L40S/A100 资源边界与 related-work 定位均保持谨慎。整体判定为 `ACCEPTED WITH MINOR ISSUES`，但 Step 3.2 尚未 COMPLETE，需先完成以下四项 bilingual-parity repair 并由独立验收侧重新读取确认：① 删除英文 Case A 独有的逐 K `1120/1120` 细节，仅保留中文已有的总计 `3360/3360 terminal configurations`；② 删除 Case A Result 末尾英文独有的 theoretical-contribution 免责声明，不用新免责声明替代；③ 删除 Case B 第一段英文独有的 `The Android work is future platform context, not a completed part of this case.`，保留中文已有的 later Android port 背景；④ 将 `accepted by and made public through the UAI 2026 Workshop...` 改为更忠实的 `accepted at ... and made publicly available`。其中第①项 source-gap 部分来自执行 prompt 同时要求“中文是唯一正文事实源”又显式列出各 K `1120/1120`，因此记录为 review-side specification tension，不视为 Codex 隐瞒或无依据幻觉。
 
 ---
 
 # active step
 
-## Step 3 — 制作英文正式版
+## Step 3.2 — 英文候选稿 bilingual-parity repair 与独立复验
 
-### 状态
+### 当前判定
 
 ```text
-ACTIVE — create and verify structured-llm-execution-framework-en.md from the frozen Chinese v1.0 candidate
+ACTIVE — initial English candidate accepted with minor issues; four narrow repairs are required before Step 3.2 can close
 ```
 
 ### 目标
 
-以当前已经通过 Step 2 验收的 `structured-llm-execution-framework-zh.md` 为**唯一正文事实源**，创建英文 v1.0 candidate：`structured-llm-execution-framework-en.md`。
+只修正已定位的四处中英语义/事实源一致性问题，不重写英文全文，不修改中文 canonical source，不提前进入 publication metadata / README 同步。
 
-英文版应是自然、可用于 GitHub / DOI / CV / PhD / internship portfolio 的技术与学术英语版本，但不能在翻译过程中形成另一套方法论、增强 claim strength、改变 Case A / Case B 事实或新增中文版没有的结论。
+### 允许修改
 
-本步骤仍然不创建正式 `v1.0` tag / GitHub Release，不生成 PDF，不 reserve / publish DOI，不开始美国版权登记。
-
-### 必须读取
-
-执行英文翻译前重新读取：
-
-1. `structured-llm-execution-framework_static.md`
-2. `structured-llm-execution-framework_runtime.md`
-3. `structured-llm-execution-framework-zh.md`
-4. `README.md`
-5. `COPYRIGHT.md`
-6. `CITATION.cff`
-
-Case A / Case B 的外部仓库证据只在英文翻译遇到事实歧义、数字或术语需要核验时读取；不得用聊天记忆替代当前仓库事实。
-
-### 允许修改 / 新增
-
-本步骤原则上只允许：
+仅：
 
 ```text
-structured-llm-execution-framework-en.md   # 新建英文正文
-README.md                                  # 英文文件通过本步骤验收后，把 in preparation 改为 candidate link
-structured-llm-execution-framework_runtime.md
+structured-llm-execution-framework-en.md
 ```
 
-`CITATION.cff` 的正式英文标题已经冻结，默认不修改；只有发现 CFF 与正式英文正文 metadata 存在客观冲突时才能在同一 evidence-backed correction 中同步修正。
+本轮不得修改：
 
-不得修改 Static。若发现中文版自身存在事实错误或核心定义冲突，应停止英文翻译并回到中文版按证据修正，不得只在英文版“偷偷修掉”。
+- `structured-llm-execution-framework-zh.md`
+- `README.md`
+- `structured-llm-execution-framework_runtime.md`
+- `structured-llm-execution-framework_static.md`
+- `CITATION.cff`
+- `COPYRIGHT.md`
 
-### 固定 publication metadata
+### 必须修正的四项
 
-英文正文顶部必须使用：
+1. Case A `peter_sweep` 段：删除英文独有的逐 K `1120/1120` 细节；保持 K=1/K=3/K=5 sweep 总计 `3360/3360 terminal configurations`，并保留 `metrics.json` / `error.json` terminal-state 与 Adrian high-learning-rate numerical failure 的原有语义。
+2. Case A Result 末尾：删除英文独有的 `The contribution documented by this case is execution governance and production experiment execution, not a theoretical contribution to PeTeR, GCW, or probabilistic circuits; the case does not establish their scientific claims.`，不得用新的额外免责声明替代。
+3. Case B 第一段：删除英文独有的 `The Android work is future platform context, not a completed part of this case.`；保留与中文版一致的 later Android port 背景，不新增其他 Android 解释。
+4. Case A 阶段演化段：把 `which was accepted by and made public through the UAI 2026 Workshop on Tractable Probabilistic Modeling (TPM)` 改为 `which was accepted at the UAI 2026 Workshop on Tractable Probabilistic Modeling (TPM) and made publicly available`。
+
+### 执行边界
+
+- repair 前必须 `git fetch origin --tags` 并确认 clean `main`、tracking `origin/main`、`origin/main...HEAD=0 0`；由于本 Runtime 更新发生在英文初稿之后，本地必须先 fast-forward 到最新 remote `main`，不得在旧 HEAD 上直接开始 repair。
+- 不得 stash / reset / clean / rebase / force push。
+- 修改后只提交英文文件，建议 commit message：`docs: align English candidate with Chinese source`。
+- push 后不得自行判定 Step 3.2 COMPLETE；最终 verdict 只能为 `ENGLISH CANDIDATE REPAIRED — awaiting independent re-verification` 或 `BLOCKED — <reason>`。
+
+### 独立复验条件
+
+repair commit 返回后，验收侧必须从 GitHub `main` 重新读取英文对应段落并确认：
+
+- 四项修正全部准确；
+- 没有额外正文修改或新的 claim drift；
+- 中文 canonical source 未修改；
+- README 仍保持 English version `in preparation`；
+- Static / CFF / COPYRIGHT 未被触碰。
+
+全部通过后：
 
 ```text
-Repository-Native Execution Governance for Long-Running LLM Workflows
-A Structured Constraint-Driven Framework for Durable Contracts, Runtime State, and Evidence-Backed Transitions
-Author: Yeming Dai
-Version: 1.0 candidate
-Canonical repository: https://github.com/smter6626/structured-llm-execution-framework
-Copyright © 2026 Yeming Dai. All rights reserved.
+Step 3.2 COMPLETE
+Step 3.3 ACTIVE — publication metadata and link audit
 ```
-
-其中 title / subtitle / Author / version / canonical repository / copyright 必须与 README、CFF、COPYRIGHT 一致。
-
-### 翻译原则
-
-英文版不是逐词直译，但必须保持**语义等价和 claim strength 等价**：
-
-- 允许调整英语句法、段落连接和技术表达，使其符合英文 technical methodology article 的阅读习惯；
-- 允许对无法自然直译的中文表达使用等价英文术语；
-- 不得把“说明 / 支撑 / 表明 / 实践中观察到”升级为 `prove`、`guarantee`、`eliminate` 等更强结论；
-- 不新增 controlled benchmark、effect size、universality、novelty、`first` / `novel` / `state-of-the-art` 等中文版未声明的主张；
-- 不把当前 methodology / technical note 描述成 peer-reviewed journal / conference paper；
-- 不改动命令、路径、版本号、commit、测试数量、实验数量、时间、硬件、Release 状态等事实；
-- 原文中的外部链接应保留或使用等价的权威链接；
-- 第八节 related work 必须保留当前谨慎定位，不回退到“现有 Agent framework 只追求自主性”或“传统 SOP 都是静态的”等已修正表述。
-
-### 术语基线
-
-以下术语在英文版中默认保持一致：
-
-| 中文概念 | 英文基线 |
-| --- | --- |
-| Static 文档 / 稳定合同 | Static document / durable contract |
-| Runtime 文档 / 动态指令 | Runtime document / current execution state |
-| History 文档 | History document / long-horizon history |
-| 职责不可混用 | Separation of Concerns |
-| 约束前置，细节延迟 | Constraints First, Details Late |
-| 提示词应当简单 | Prompts Should Be Dumb |
-| 工程强度应与任务风险匹配 | Proportional Rigor |
-| 状态迁移证据 | State Transition Evidence |
-| 决策覆写与失效传播 | Decision Supersession / explicit supersession |
-| 验收门 | acceptance gate |
-| 产物验证 | artifact verification |
-| 幻觉扩散 | Hallucination Drift |
-| 约束漂移 | Constraint Drift |
-| 当前有效状态 / 项目语义状态 | current authoritative state / project semantic state |
-
-若正文中同一术语需要长短两种形式，首次出现给出完整名称，之后保持稳定缩写或短称，不在章节间随意换词。
-
-### 结构要求
-
-英文版保持中文版的逻辑顺序与内容覆盖：
-
-1. Abstract
-2. Problem Origin / Failure Modes
-3. Design Principles
-4. Document Structure
-5. Execution Loop
-6. Why It Works
-7. Case Studies
-   - Case A
-   - Case B
-8. Applicability Boundaries and Misuse Risks
-9. Distinction from Related Methods and Tools
-
-章节标题可以为英文阅读习惯做轻微调整，但不得省略整段论证、风险项、Case 事实或 related-work 类别。
-
-### Case A / Case B 翻译边界
-
-Case A 必须保留：
-
-- runDRO / TPM / AAAI 的阶段关系；
-- task-local Static/Runtime 与 cross-task History 的分工；
-- K=1/3/5 sweep 共 `3360/3360` terminal configurations；
-- Adrian 对高 learning-rate numerical failures 的确认语义；
-- RLTPM K=3/K=5 各 `28/28`；
-- L40S / A100、约 12 GiB / 47.8 GiB 等资源证据；
-- 不能把 execution contribution 翻译成理论贡献。
-
-Case B 必须保留：
-
-- 自有 Windows / macOS 历史原型与源码遗失背景；
-- macOS 工程化复刻是单一边界清晰任务，因此没有机械增加 History；
-- `2026-08-02 21:41 MST` 首次仓库盘点、约 33 小时到公开 Pre-release；
-- 130 → 165 tests 的阶段演化；
-- alpha.1 → alpha.2 → alpha.3 与 license owner decision；
-- 75 Mach-O / 324 dynamic references / 20 `LC_RPATH`；
-- source protection、cancellation、artifact identity verification、non-development-Mac acceptance；
-- 不把“仅 macOS 27 被测试”翻译成“supports macOS 27+”。
-
-### 执行与验收顺序
-
-#### Step 3.1 — 创建英文正文
-
-- 按中文版逐节翻译；
-- 不先跳过 Case Study 或 related work 再凭记忆补写；
-- 完成后先做结构完整性检查。
-
-#### Step 3.2 — 中英逐节事实对照
-
-至少核对：
-
-- section / subsection coverage；
-- 每个列表项数量；
-- Static / Runtime / History 定义；
-- execution loop 的 Step 0–4.4；
-- State Transition Evidence / Supersession；
-- Case A/B 所有数字、日期、硬件、commit/Release/测试事实；
-- 第七节风险分层与错误使用风险；
-- 第八节 5 类 related-work comparison。
-
-#### Step 3.3 — publication metadata 与链接检查
-
-确认：
-
-- title / subtitle / Author / version / canonical repository / copyright 与当前 README/CFF/COPYRIGHT 一致；
-- 不存在 DOI、正式 release date、publication venue、registration 或开放许可证的虚构声明；
-- Markdown 链接没有因翻译而损坏。
-
-#### Step 3.4 — README 同步
-
-只有英文正文通过 Step 3 本身的内容检查后，才把 README 中：
-
-```text
-English version: in preparation
-```
-
-更新为实际英文 v1.0 candidate 链接。不得在英文正文尚未完成时提前把 README 标成 completed。
-
-#### Step 3.5 — 状态推进
-
-从 GitHub `main` 重新读取英文正文和 README，记录最终 commit / blob SHA、验证结论和任何非阻塞 residue。全部通过后：
-
-```text
-Step 3 COMPLETE
-Step 4 ACTIVE — bilingual consistency review
-```
-
-### Step 3 验收条件
-
-- [ ] `structured-llm-execution-framework-en.md` 存在；
-- [ ] 正式英文 title / subtitle 完全一致；
-- [ ] Author / version / canonical repository / copyright 一致；
-- [ ] 英文版覆盖中文版全部章节、案例、风险项与 related work；
-- [ ] Static / Runtime / History 与 execution-loop 语义没有改变；
-- [ ] Case A / Case B 的关键数字、日期、状态和链接与中文版一致；
-- [ ] 没有新增更强 novelty / reliability / universality claim；
-- [ ] 没有虚构 DOI / release / venue / registration / open license；
-- [ ] README 已在英文版验收后更新为实际 candidate 链接；
-- [ ] GitHub `main` 回读验证通过；
-- [ ] 完成证据写回 Runtime；
-- [ ] Step 4 成为唯一 active step。
-
-### 失败 / 阻塞处理
-
-- 中文原文存在歧义：标出具体段落，优先按中文上下文和仓库证据解释；无法唯一确定时停止并交 owner 决定。
-- 翻译过程中发现中文版事实错误：不得只修英文版；返回中文版做 evidence-backed correction 后，再同步英文。
-- 需要改变核心定义或方法论边界才能写顺英文：停止，交 owner 决策；不得以“英文润色”名义改变框架。
-- 英文术语存在多个合理选项：优先与正式英文标题、副标题、第八节生态定位和 CFF 一致；必要时在 Runtime 记录术语决策。
 
 ---
 
 # next steps
 
-以下只保留方向，等当前 active step 完成后再展开。
+## Step 3.3 — publication metadata 与链接检查
+
+方向：核对英文 title / subtitle / Author / version / canonical repository / copyright 与 README、CFF、COPYRIGHT 一致；检查 Markdown 链接；确认无虚构 DOI、正式 release date、venue、registration 或 open license。
+
+## Step 3.4 — README 同步
+
+方向：只有英文正文通过 Step 3.2 / 3.3 后，才把 README 的 `English version: in preparation` 更新为实际英文 v1.0 candidate 链接。
+
+## Step 3.5 — Step 3 状态推进
+
+方向：从 GitHub `main` 重新读取英文正文、README 和 publication metadata，记录最终 commit/blob SHA，完成 Step 3 验收后推进到 Step 4。
 
 ## Step 4 — 中英文联合一致性验收
 
-方向：交叉检查标题、作者、版本、术语、链接、案例事实、数字、rights metadata 和 citation metadata，形成 v1.0 release candidate。
+方向：对 v1.0 release candidate 做更高层的双语联合一致性检查，形成 PDF 前的冻结候选。
 
 ## Step 5 — 生成固定版 PDF 与发布资产
 
