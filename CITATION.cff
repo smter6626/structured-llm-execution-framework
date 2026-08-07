@@ -1,0 +1,18 @@
+cff-version: 1.2.0
+message: "Please cite this framework using the metadata in preferred-citation."
+title: "Repository-Native Execution Governance for Long-Running LLM Workflows"
+authors:
+  - family-names: "Dai"
+    given-names: "Yeming"
+version: "1.0-candidate"
+repository-code: "https://github.com/smter6626/structured-llm-execution-framework"
+url: "https://github.com/smter6626/structured-llm-execution-framework"
+preferred-citation:
+  type: generic
+  authors:
+    - family-names: "Dai"
+      given-names: "Yeming"
+  title: "Repository-Native Execution Governance for Long-Running LLM Workflows: A Structured Constraint-Driven Framework for Durable Contracts, Runtime State, and Evidence-Backed Transitions"
+  year: 2026
+  version: "1.0-candidate"
+  url: "https://github.com/smter6626/structured-llm-execution-framework"
