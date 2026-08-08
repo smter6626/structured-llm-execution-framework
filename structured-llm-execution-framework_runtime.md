@@ -3,7 +3,7 @@
 ## Current Status
 
 ```text
-ACTIVE — Step 8 COMPLETE / PASS; Step 9 remains incomplete after a BLOCKED public-surface audit; Step 9-a README canonical-link repair is the sole active repair iteration
+PASS — Step 9 COMPLETE / PASS; the v1.0 authorship/provenance package is publicly frozen, citable, DOI-backed, and cross-linked. Step 10 U.S. Copyright Office registration remains OPTIONAL / NOT STARTED.
 ```
 
 当前 canonical repository：
@@ -74,10 +74,19 @@ ACTIVE — Step 8 COMPLETE / PASS; Step 9 remains incomplete after a BLOCKED pub
 - 2026-08-08：Zenodo citation closure metadata 已补齐并重新 Publish。owner 在已发布 record 的 `Related works` 中加入 `Is supplemented by` → `Software` → `https://github.com/smter6626/structured-llm-execution-framework/releases/tag/v1.0`（scheme=`URL`），Preview 中显示正确，链接实际点击后进入正式 GitHub v1.0 Release；随后 owner Publish 该 metadata edit。该操作不修改 Zenodo 的 6 个 frozen files、DOI、version 或 rights。
 - 2026-08-08：最终公开表面验收（Chrome/browser + CLI，只读）得到 `FINAL PUBLICATION SURFACE AUDIT — BLOCKED`。唯一 blocker 是 repository landing-page `README.md` 的 canonical repository 裸链接使用行尾反斜杠：`**Canonical repository:** https://github.com/smter6626/structured-llm-execution-framework\`。GitHub renderer 将该反斜杠纳入 URL，实际点击为 `https://github.com/smter6626/structured-llm-execution-framework%5C` 并返回 404；正确 canonical URL 本身返回 200。其余验收项均通过：正式 title/author/version/date/DOI/rights 一致；annotated `v1.0` tag 解引用到 `d43ecdf82401852c271bb066ccb163527b71da02`；GitHub Release 7 个 explicit assets 正确；GitHub 与 Zenodo 6 个 frozen files 逐字节一致；`SHA256SUMS` 全部通过；DOI 正确解析；Release → Zenodo → Related work → Release 与 README → DOI → Zenodo → Release 两条导航闭环正常；双语 Markdown/PDF、CFF、rights、provenance 均无其他 blocker。该审计未执行任何远端写操作。
 - 2026-08-08：上述 browser blocker 不授权修改已冻结的 `v1.0` tag、GitHub Release assets 或 Zenodo files。`v1.0` tagged README 中同一 redundant canonical self-link 缺陷作为 frozen historical snapshot 的已知 landing-page defect 保留；为满足当前 canonical repository 的公开可用性，Step 9 进入 `Step 9-a` repair：只在 evolving `main` 上最小修复 README canonical repository link，并在 Runtime 记录本次修复；随后做 targeted read-only public-surface re-audit。任何会要求移动/重建 `v1.0` tag 或替换 frozen assets 的早期修复思路均 `SUPERSEDED`。
+- 2026-08-08：**Step 9-a README repair 已完成**。repair commit `4ae67823a49e5e5600353eee54f29682ae262d80` 只修复 current `main` 的 `README.md` canonical repository 链接。原始形式为裸 URL + trailing backslash，GitHub renderer 会将反斜杠包含进 URL，形成 `%5C` 并导致点击 404；修复后改为显式 Markdown link，没有修改 frozen `v1.0` tag、GitHub Release、Zenodo、PDF 或 release assets。
+- 2026-08-08：**Step 9-a targeted Chrome audit PASS**。实际点击 README canonical repository link 的最终 URL 为 `https://github.com/smter6626/structured-llm-execution-framework`，HTTP 200，`%5C` absent，`Page not found`=`0`。README DOI 正确跳转到 `https://zenodo.org/records/21844275`；中文 Markdown、English Markdown 与 GitHub `v1.0` Release 均正常；7 个 explicit Release assets 仍可见；Zenodo `Related works` 仍正确指向 GitHub `v1.0` Release。
+- 2026-08-08：Step 9-a 修复与 targeted audit 后，frozen publication state 未变化。`v1.0` tag 仍解引用到 `d43ecdf82401852c271bb066ccb163527b71da02`；GitHub Release 仍为正式 Release、非 Draft、非 Pre-release；7 个 assets 的 names / sizes / digests unchanged；Zenodo 6 个 frozen files unchanged；双语 PDFs unchanged；release hashes unchanged；`v1.0` tag 未移动。
+- 2026-08-08：review side 独立复核确认：current `main` README 的显式 canonical link 正确；`v1.0` tagged README 保持原 frozen snapshot；`v1.0` tag 未移动；Zenodo 正式 record 仍为 Version `1.0`；specific version DOI=`10.5281/zenodo.21844275`；all-versions DOI=`10.5281/zenodo.21844274`；`Related works` 保持 `Is supplemented by` → GitHub `v1.0` Release；Rights=`Copyright © 2026 Yeming Dai. All rights reserved.`。
+- 2026-08-08：`v1.0` tagged README 中原 canonical self-link rendering defect 被明确记录为 frozen historical snapshot 的已知 landing-page defect。它不影响 bilingual Markdown publication content、双语 PDFs、`CITATION.cff`、DOI、Zenodo record/files、GitHub Release explicit assets、authorship / version / rights metadata 或 Release ↔ Zenodo citation closure；该缺陷已在 evolving `main` 修复。不得为了消除此 frozen historical defect 移动 `v1.0` tag、重写 `v1.0` history、替换正式 Release assets 或修改 Zenodo frozen files。
+- 2026-08-08：review side 后续在 `main` 根目录新增公开的 author/maintainer-facing repository maintenance guide `MAINTAINER_GUIDE.md`，commit `decb4b98edb0ff3964bd7c8bb86dd563dc5fe9cc`（`docs: add maintainer guide for repository operations`）。该文档属于 post-v1.0 repository maintenance：不属于 frozen `v1.0` publication package，不构成 `v1.1`，不改变 `v1.0` identity 或 DOI，也不要求重新生成 `v1.0` PDF、Release 或 Zenodo version。
+- 2026-08-08：**Step 9-a COMPLETE / PASS**。README canonical-link repair 与 targeted public-surface re-audit 已通过，且 frozen publication state 保持不变。
+- 2026-08-08：**Step 9 COMPLETE / PASS**。GitHub frozen `v1.0` Release、specific DOI、Zenodo Version `1.0` record、repository landing page 与双向 citation links 已完成公开收口。
+- 2026-08-08：**MAIN TASK: PASS — v1.0 authorship/provenance package publicly frozen, citable, DOI-backed, and cross-linked.**
 
 ---
 
-# active step
+# completed repair iteration archive
 
 ## Step 9-a — repair README canonical-link rendering and rerun targeted public-surface audit
 
@@ -161,9 +170,19 @@ d43ecdf82401852c271bb066ccb163527b71da02
 STEP 9-A REPAIR COMPLETE — awaiting final read-only publication-surface re-audit
 ```
 
+---
+
+# active step
+
+```text
+NONE — mandatory publication/provenance work is complete. Step 10 remains optional and is not active unless the owner explicitly starts it.
+```
+
 # next steps
 
 ## Step 10 — 可选：美国版权登记
+
+状态：`OPTIONAL / NOT STARTED`
 
 方向：仅在 owner 确认要做时启动；届时重新核对 U.S. Copyright Office 最新规则、发表状态、deposit copy、AI-assisted authorship disclosure 和申请类型。该步骤不阻塞主要任务完成。
 
