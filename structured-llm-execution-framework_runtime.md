@@ -3,7 +3,7 @@
 ## Current Status
 
 ```text
-ACTIVE — Step 8 COMPLETE / PASS; Step 9 GitHub frozen v1.0 release and citation closure is the sole active step
+ACTIVE — Step 8 COMPLETE / PASS; Step 9 remains incomplete after a BLOCKED public-surface audit; Step 9-a README canonical-link repair is the sole active repair iteration
 ```
 
 当前 canonical repository：
@@ -70,52 +70,96 @@ ACTIVE — Step 8 COMPLETE / PASS; Step 9 GitHub frozen v1.0 release and citatio
 - 2026-08-07：**Step 6 COMPLETE / PASS**。Zenodo unpublished draft、reserved DOI、双语/title/creator/version/ARR rights metadata 均已建立并经 owner screenshot audit；当前没有上传 preflight candidate PDFs、没有误 Publish、没有公开 tag/Release。后续有效顺序更新为：Step 7 在本地使用 reserved DOI 形成并验收 exact final v1.0 Markdown/CFF/PDF，随后把 exact final files 上传并冻结在 Zenodo draft（仍不 Publish、仍不把 DOI push 到 public GitHub）→ Step 8 Publish Zenodo 以激活 DOI，并立即验证 DOI resolution / record metadata / file hashes → Step 9 将已验收的同一 release content 推送为 GitHub frozen release commit，创建不可移动 `v1.0` tag + GitHub Release，并完成 DOI ↔ Release ↔ repository ↔ citation metadata cross-link closure → Step 10 optional U.S. Copyright Office registration。
 - 2026-08-08：**Step 7 COMPLETE / PASS**。owner 确认 formal publication date=`2026-08-08`。基于 public `main` 建立 local-only branch `release/v1.0-staging`，并用 commit `365710cd6dd17e681b6e241db54769999062438c`（`release: stage v1.0 DOI-backed publication assets`）冻结 release-ready tracked content；该 commit 只修改 `README.md`、`structured-llm-execution-framework-zh.md`、`structured-llm-execution-framework-en.md` 与 `CITATION.cff`，两篇文章 body 没有语义修改。最终中文 PDF SHA-256=`e0218e643937d0e74c442cdab5ecb8fb258044781b611dc8a9a081e4b3bef9e9`，最终英文 PDF SHA-256=`44ec7ca4050f49a5fb8bffab3a2138aacf876baef424f072f119ce001851f7a1`；两份 final PDF 已通过独立 review。Zenodo exact 6-file upload set 与 review bundle hashes 对应，Zenodo Preview 在正式 Publish 前通过，Step 7 final upload set 自此冻结。
 - 2026-08-08：**Step 8 COMPLETE / PASS**。Zenodo record 已正式 Publish：published date=`2026-08-08`，Version=`1.0`，specific version DOI=`10.5281/zenodo.21844275`，all-versions DOI=`10.5281/zenodo.21844274`，public record=`https://zenodo.org/records/21844275`，Rights=`All rights reserved`。正式 record 保留 Step 7 的 6 个 exact frozen files。owner 已在未登录 / Incognito 环境中成功访问 record，并确认 DOI resolver `https://doi.org/10.5281/zenodo.21844275` 跳转到正式 Zenodo record。Publish 后该版本作为 frozen version snapshot 管理，不依赖 Zenodo 的后续纠错窗口进行普通修改。
+- 2026-08-08：Step 9 release publication execution 已完成主要发布动作。public `main` fast-forward 到 commit `d43ecdf82401852c271bb066ccb163527b71da02`（`docs: close Zenodo publication and activate GitHub v1.0 release`）；annotated tag `v1.0` 的 tag object=`94ad12878c2ce425a149bd76db2c5561c92db551`，dereferenced commit=`d43ecdf82401852c271bb066ccb163527b71da02`。GitHub Release `https://github.com/smter6626/structured-llm-execution-framework/releases/tag/v1.0` 于 `2026-08-08T00:04:40Z` 正式发布，非 Draft、非 Pre-release，发布时为 latest release。Release 含 7 个 explicit assets：Step 7 的 6 个 frozen files + `SHA256SUMS`。download-back 后 6 个核心 SHA-256 与 Step 7 frozen values 完全一致，`SHA256SUMS` 六项全部 `OK`。GitHub API 报告 `isImmutable=false`，因此长期不可变性继续依赖项目合同：不得移动 `v1.0` tag、不得静默替换正式 Release assets。
+- 2026-08-08：Zenodo citation closure metadata 已补齐并重新 Publish。owner 在已发布 record 的 `Related works` 中加入 `Is supplemented by` → `Software` → `https://github.com/smter6626/structured-llm-execution-framework/releases/tag/v1.0`（scheme=`URL`），Preview 中显示正确，链接实际点击后进入正式 GitHub v1.0 Release；随后 owner Publish 该 metadata edit。该操作不修改 Zenodo 的 6 个 frozen files、DOI、version 或 rights。
+- 2026-08-08：最终公开表面验收（Chrome/browser + CLI，只读）得到 `FINAL PUBLICATION SURFACE AUDIT — BLOCKED`。唯一 blocker 是 repository landing-page `README.md` 的 canonical repository 裸链接使用行尾反斜杠：`**Canonical repository:** https://github.com/smter6626/structured-llm-execution-framework\`。GitHub renderer 将该反斜杠纳入 URL，实际点击为 `https://github.com/smter6626/structured-llm-execution-framework%5C` 并返回 404；正确 canonical URL 本身返回 200。其余验收项均通过：正式 title/author/version/date/DOI/rights 一致；annotated `v1.0` tag 解引用到 `d43ecdf82401852c271bb066ccb163527b71da02`；GitHub Release 7 个 explicit assets 正确；GitHub 与 Zenodo 6 个 frozen files 逐字节一致；`SHA256SUMS` 全部通过；DOI 正确解析；Release → Zenodo → Related work → Release 与 README → DOI → Zenodo → Release 两条导航闭环正常；双语 Markdown/PDF、CFF、rights、provenance 均无其他 blocker。该审计未执行任何远端写操作。
+- 2026-08-08：上述 browser blocker 不授权修改已冻结的 `v1.0` tag、GitHub Release assets 或 Zenodo files。`v1.0` tagged README 中同一 redundant canonical self-link 缺陷作为 frozen historical snapshot 的已知 landing-page defect 保留；为满足当前 canonical repository 的公开可用性，Step 9 进入 `Step 9-a` repair：只在 evolving `main` 上最小修复 README canonical repository link，并在 Runtime 记录本次修复；随后做 targeted read-only public-surface re-audit。任何会要求移动/重建 `v1.0` tag 或替换 frozen assets 的早期修复思路均 `SUPERSEDED`。
 
 ---
 
 # active step
 
-## Step 9 — GitHub frozen v1.0 release + citation closure
+## Step 9-a — repair README canonical-link rendering and rerun targeted public-surface audit
 
 ### 当前判定
 
 ```text
-ACTIVE — publish the independently verified Step 7 release-content commits to public `main`, create the immutable `v1.0` tag and GitHub Release from that exact commit, and verify the downloaded release assets against the frozen hashes
+ACTIVE — Step 9 completion is blocked only by a broken canonical repository hyperlink in the repository landing-page README; repair current `main` without altering the frozen `v1.0` tag/Release/Zenodo snapshot, then rerun a targeted read-only audit
 ```
 
 ### 目标
 
-在 specific version DOI 已公开激活、Step 7 exact assets 已冻结并通过独立 review 的前提下，将 local-only staging branch 以 fast-forward 方式发布到 public `main`。从包含 release content 与 Step 7/8 closure evidence 的 exact commit 创建不可移动 annotated `v1.0` tag，再创建 GitHub Release，上传与 Zenodo 对应的 6 个 frozen files 和额外 `SHA256SUMS` integrity asset。发布前后均不得重新生成或替换 Step 7 PDF。
+修复 current `main` README 中 GitHub renderer 把行尾 `\` 编入裸 URL 而产生 `%5C`/404 的单一公开表面缺陷，同时保持正式 `v1.0` snapshot 不变。该修复属于 post-v1.0 repository landing-page maintenance，不改变中英文正式文章、PDF、CFF、rights、DOI、Zenodo record 或 GitHub Release assets。
 
-### 当前 authoritative publication identity
+### 已确认 blocker
 
-- Formal publication date: `2026-08-08`
-- Version: `1.0`
-- Specific version DOI: `10.5281/zenodo.21844275`
-- All-versions DOI: `10.5281/zenodo.21844274`
-- Zenodo record: `https://zenodo.org/records/21844275`
-- Rights: `Copyright © 2026 Yeming Dai. All rights reserved.`
+当前损坏文本：
 
-### Git 与 release 边界
+```markdown
+**Canonical repository:** https://github.com/smter6626/structured-llm-execution-framework\
+```
 
-- public `main` 必须以 fast-forward 接收 staging commits；禁止 force push、rebase 或 history rewrite。
-- 只有 `origin/main` 与 release snapshot HEAD 完全一致后，才可创建 annotated `v1.0` tag；tag 发布后不得移动或删除。
-- GitHub Release 必须先作为 Draft 创建并核对 7 个 explicit assets，且不得使用 asset clobber。
-- 只有 UTC 日期进入 `2026-08-08` 后，才可 Publish GitHub Release。
-- 发布后必须重新下载 7 个 assets；6 个核心文件必须与 Step 7 frozen SHA-256 完全一致，`SHA256SUMS` 必须验证通过。
-- 不得重新生成 PDF，不得修改 Zenodo files，不得创建 Zenodo New version。
+GitHub 实际渲染目标：
 
-### Step 9 完成条件
+```text
+https://github.com/smter6626/structured-llm-execution-framework%5C
+```
 
-只有以下全部满足才可 COMPLETE：
+结果：HTTP 404。
 
-- Step 7 release content 与本条 Step 7/8 closure Runtime commit 已 fast-forward 到 public `main`；
-- annotated `v1.0` tag 指向 exact release snapshot commit 并已 push；
-- GitHub Release 在 publication-time gate 后正式发布，且不是 prerelease；
-- 7 个 release assets 的 name/size 正确；
-- download-back 后 6 个核心文件 hash 与 Step 7 frozen values 完全一致，`SHA256SUMS` 验证通过；
-- repository / Markdown / PDF / CFF / Zenodo / GitHub Release 能围绕 specific DOI 相互定位；
-- Runtime 不在本执行侧提前标记 Step 9 COMPLETE，最终状态由独立 review side 验收后推进。
+正确 canonical URL：
+
+```text
+https://github.com/smter6626/structured-llm-execution-framework
+```
+
+已确认正常可访问。
+
+### Authoritative repair
+
+只在 current `main` 的 `README.md` 做最小修复，将 canonical repository 行改为显式 Markdown link，并使用正常 Markdown hard break，而不是紧贴 URL 的反斜杠：
+
+```markdown
+**Canonical repository:** [https://github.com/smter6626/structured-llm-execution-framework](https://github.com/smter6626/structured-llm-execution-framework)  
+```
+
+除该行外不得顺手重写 README 文案。
+
+### 冻结边界
+
+不得：
+
+- 移动、删除或重建 `v1.0` tag；
+- 修改、删除、替换 GitHub v1.0 Release assets；
+- 使用 asset `--clobber`；
+- 修改 Zenodo frozen files、DOI、version 或 rights；
+- 创建 Zenodo new version；
+- 重新生成正式 PDF；
+- force push、rebase 或 rewrite 已公开历史。
+
+`v1.0` tag 仍必须解引用到：
+
+```text
+d43ecdf82401852c271bb066ccb163527b71da02
+```
+
+### Step 9-a 完成条件
+
+只有以下全部满足才可结束 repair iteration：
+
+- current `main` README canonical repository link 已最小修复并 normal fast-forward push；
+- browser 实际点击该链接最终 URL 为正确 canonical repository，不含 `%5C`，不返回 404；
+- README DOI link、双语 Markdown 和 Release 入口 smoke check 正常；
+- `v1.0` tag 仍指向 `d43ecdf82401852c271bb066ccb163527b71da02`；
+- GitHub Release、7 assets、Zenodo record 与 frozen hashes 均未改变；
+- targeted read-only re-audit 没有新的 publication-identity / rights / DOI / cross-link blocker；
+- Runtime 不由执行侧提前标记 Step 9 COMPLETE，最终 Step 9 / main-task verdict 由独立 review side验收后推进。
+
+完成后预期执行侧报告：
+
+```text
+STEP 9-A REPAIR COMPLETE — awaiting final read-only publication-surface re-audit
+```
 
 # next steps
 
