@@ -585,3 +585,37 @@ COMPLETE / PASS
 - 不把未经验证的猜测写成长期规则；
 - 若某条笔记上升为长期合同，应由作者明确决定是否同步到 Static；
 - 若某条笔记只是当前任务状态，应留在 Runtime，而不是本文档。
+
+---
+
+## 15. 已确认维护案例
+
+### 15.1 v1.0 README canonical repository 链接渲染缺陷
+
+`v1.0` 发布后的 public-surface audit 发现：frozen `v1.0` tag 中的 `README.md` 使用裸 canonical repository URL，并用 trailing backslash 作为 Markdown 换行。GitHub renderer 将该反斜杠编码进实际链接，形成 `%5C`，点击后返回 404。
+
+影响范围仅限该 README 中的冗余 canonical self-link；中英文正式文章、双语 PDF、`CITATION.cff`、GitHub Release explicit assets、Zenodo record/files、DOI、作者/版本/rights metadata 均不受影响。
+
+处理结果：
+
+- evolving `main` 在 commit `4ae67823a49e5e5600353eee54f29682ae262d80` 中将该裸 URL 改为显式 Markdown link；
+- targeted browser audit 确认最终 URL 为 `https://github.com/smter6626/structured-llm-execution-framework`、HTTP 200、无 `%5C`、无 404；
+- frozen `v1.0` tag 不移动，tagged README 保留原发布时状态；
+- 不替换 Release assets，不修改 Zenodo frozen files，不为该非核心展示缺陷单独发布 `v1.0.1`。
+
+该案例的维护结论是：**正式快照的不可变性优先于回写旧 tag 来消除辅助 landing-page 的非核心展示缺陷；当前 `main` 应修复用户入口，同时把 frozen snapshot 中的历史缺陷明确记录。**
+
+### 15.2 `sharable` 旧版文章的历史入口处理
+
+框架最初在 `smter6626/sharable` 中公开迭代，随后迁移到独立 canonical repository。`sharable` 中的旧中文稿继续承担 provenance evidence 的作用，因此不删除、不用当前 v1.0 正文覆盖，也不重写其既有历史。
+
+处理结果：
+
+- 在 `smter6626/sharable` 的旧文章 `structured-llm-execution-framework/structured-llm-execution-framework-zh.md` 顶部增加 `Historical version / 历史版本` 提示；
+- 对应 commit 为 `b386aabbc3a6fb040f4e316dc47eb0c7e540f69a`；
+- 提示明确说明该文件是为 provenance 保留的早期公开开发版本，不再是 canonical publication；
+- 提示给出当前 canonical repository `https://github.com/smter6626/structured-llm-execution-framework` 与正式 v1.0 DOI `https://doi.org/10.5281/zenodo.21844275`；
+- 旧文章正文继续原样保留，使既有旧链接和迁移前 Git history 仍可用于来源追踪；
+- 独立专用仓库、frozen `v1.0`、GitHub Release、Zenodo 与 DOI 均未因此修改。
+
+该处理把 `sharable` 明确定位为**历史来源入口**，把独立仓库定位为**当前 canonical home**：旧链接继续有效，但读者进入旧稿后会被明确引导到当前正式版本。
