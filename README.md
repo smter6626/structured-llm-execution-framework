@@ -43,15 +43,6 @@ Machine-readable citation metadata is available in [`CITATION.cff`](CITATION.cff
 
 The v1.0 publication is identified by DOI [10.5281/zenodo.21844275](https://doi.org/10.5281/zenodo.21844275). The citation metadata records the formal title, author, version, publication date, canonical repository, and DOI. Rights remain All rights reserved as documented in [`COPYRIGHT.md`](COPYRIGHT.md).
 
-## Project control documents
-
-The repository also carries two internal execution-control documents used to formalize authorship, provenance, versioning, and publication:
-
-- [`structured-llm-execution-framework_static.md`](structured-llm-execution-framework_static.md) — long-lived contract
-- [`structured-llm-execution-framework_runtime.md`](structured-llm-execution-framework_runtime.md) — current execution state
-
-These control documents are not themselves the primary publication artifact.
-
 ## Publication status
 
 Version 1.0 is the frozen, DOI-backed bilingual publication snapshot. The methodology may continue to evolve through later explicitly versioned releases; the v1.0 publication assets are not to be silently rewritten. No U.S. Copyright Office registration is claimed.
