@@ -1,0 +1,16 @@
+{
+  "name": "structured-llm-execution-framework-pdf-build",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Reproducible local tooling for bilingual PDF preflight candidates.",
+  "type": "module",
+  "scripts": {
+    "build:pdf": "bash scripts/build_pdfs.sh"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "markdown-it": "14.1.0"
+  }
+}

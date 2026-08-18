@@ -1,0 +1,251 @@
+@page {
+  size: A4;
+  margin: 18mm 17mm 20mm;
+
+  @bottom-center {
+    content: counter(page);
+    color: #6b7280;
+    font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+    font-size: 7.5pt;
+  }
+}
+
+:root {
+  color: #1f2933;
+  background: #ffffff;
+  font-synthesis: none;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 10.25pt;
+}
+
+body {
+  margin: 0;
+  color: #1f2933;
+  background: #ffffff;
+  font-family: Georgia, "Times New Roman", serif;
+  line-height: 1.56;
+  text-rendering: optimizeLegibility;
+}
+
+html[lang="zh-CN"] body {
+  font-family: "Songti SC", STSong, "Times New Roman", serif;
+  line-height: 1.68;
+}
+
+.document {
+  max-width: none;
+}
+
+h1,
+h2,
+h3 {
+  break-after: avoid-page;
+  break-inside: avoid;
+  color: #111827;
+  font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "PingFang SC", Arial, sans-serif;
+  font-weight: 650;
+  line-height: 1.2;
+  text-wrap: balance;
+}
+
+h1 {
+  margin: 0 0 7mm;
+  font-size: 24pt;
+  letter-spacing: -0.02em;
+}
+
+h2 {
+  margin: 10mm 0 4mm;
+  padding-bottom: 1.6mm;
+  border-bottom: 0.6pt solid #cbd5e1;
+  font-size: 17pt;
+}
+
+h3 {
+  margin: 7mm 0 3mm;
+  font-size: 12.5pt;
+}
+
+main > h1:first-child {
+  margin-top: 28mm;
+  margin-bottom: 8mm;
+  font-size: 27pt;
+  line-height: 1.15;
+}
+
+html[lang="zh-CN"] main > h1:first-child {
+  font-size: 29pt;
+  letter-spacing: 0.02em;
+}
+
+main > h1:first-child + blockquote {
+  margin: 0 0 13mm;
+  padding: 0 0 0 4mm;
+  border-left: 2.5pt solid #476582;
+  color: #334155;
+  font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "PingFang SC", Arial, sans-serif;
+  font-size: 12.5pt;
+  line-height: 1.45;
+}
+
+main > h1:first-child + blockquote p {
+  margin: 0;
+}
+
+main > h1:first-child ~ p {
+  overflow-wrap: anywhere;
+}
+
+main > hr:first-of-type {
+  height: 0;
+  margin: 0;
+  border: 0;
+  break-after: page;
+}
+
+p {
+  margin: 0 0 3.4mm;
+  orphans: 3;
+  widows: 3;
+}
+
+p.keep-with-next {
+  break-after: avoid-page;
+}
+
+blockquote {
+  margin: 4mm 0;
+  padding: 2mm 4mm;
+  border-left: 2pt solid #94a3b8;
+  color: #475569;
+  background: #f8fafc;
+}
+
+strong {
+  color: #111827;
+  font-weight: 700;
+}
+
+em {
+  color: #334155;
+}
+
+a {
+  color: #1d4f7a;
+  text-decoration: underline;
+  text-decoration-thickness: 0.6pt;
+  text-underline-offset: 1.2pt;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+code,
+pre {
+  font-family: "SFMono-Regular", Menlo, Monaco, "PingFang SC", "Courier New", monospace;
+  font-variant-ligatures: none;
+}
+
+code {
+  padding: 0.15em 0.35em;
+  border-radius: 3px;
+  color: #243447;
+  background: #eef2f6;
+  font-size: 0.88em;
+  overflow-wrap: anywhere;
+}
+
+pre {
+  margin: 4mm 0 5mm;
+  padding: 4mm;
+  border: 0.6pt solid #cbd5e1;
+  border-radius: 4px;
+  color: #17212b;
+  background: #f6f8fa;
+  font-size: 8.1pt;
+  line-height: 1.38;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  break-inside: avoid;
+}
+
+pre code {
+  padding: 0;
+  color: inherit;
+  background: transparent;
+  font-size: inherit;
+  white-space: inherit;
+}
+
+ul,
+ol {
+  margin: 2.5mm 0 4mm;
+  padding-left: 7mm;
+}
+
+li {
+  margin: 1.2mm 0;
+  orphans: 2;
+  widows: 2;
+}
+
+li > p {
+  margin-bottom: 1.5mm;
+}
+
+table {
+  width: 100%;
+  margin: 5mm 0 6mm;
+  border-collapse: collapse;
+  table-layout: fixed;
+  font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "PingFang SC", Arial, sans-serif;
+  font-size: 8.6pt;
+  line-height: 1.4;
+  break-inside: avoid;
+}
+
+thead {
+  display: table-header-group;
+}
+
+tr {
+  break-inside: avoid;
+}
+
+th,
+td {
+  padding: 2.2mm 2.5mm;
+  border: 0.6pt solid #aeb9c5;
+  vertical-align: top;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+th {
+  color: #152536;
+  background: #e9eff5;
+  font-weight: 700;
+  text-align: left;
+}
+
+tbody tr:nth-child(even) {
+  background: #f8fafc;
+}
+
+hr {
+  margin: 7mm 0;
+  border: 0;
+  border-top: 0.6pt solid #d6dde5;
+}
+
+@media print {
+  a {
+    color: #1d4f7a;
+  }
+}
